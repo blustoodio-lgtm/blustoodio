@@ -1331,7 +1331,7 @@
       /* ── GRAPHIC DESIGN ── */
       .fig-wrap { padding: 64px 20px 40px; gap: 16px; height: auto; }
       .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
-      .fig-graphic-list { display: none; }
+      .fig-graphic-list { columns: 1; font-size: 12px; line-height: 1.8; }
       .masonry-grid { grid-template-columns: 1fr; gap: 6px; }
       .mitem { aspect-ratio: 4 / 3; }
       .mitem.big { grid-column: span 1; grid-row: span 1; aspect-ratio: 16 / 9; }
@@ -1376,9 +1376,9 @@
         gap: 0 12px;
         font-size: 10px;
         line-height: 1.7;
-        color: rgba(30, 20, 10, 0.75) !important;
       }
-      .photo-overlay-list * { color: rgba(30, 20, 10, 0.75) !important; }
+      #photo .photo-overlay-list,
+      #photo .photo-overlay-list * { color: rgba(30, 20, 10, 0.82) !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none !important; }
@@ -1430,7 +1430,10 @@
       .wname { font-size: clamp(24px, 10vw, 42px); }
 
       /* ── GRAPHIC ── */
-      .masonry-grid { grid-template-columns: repeat(2, 1fr); }
+      .masonry-grid { grid-template-columns: 1fr; }
+      .mitem { aspect-ratio: 4 / 3; }
+      .mitem.big { grid-column: span 1; grid-row: span 1; aspect-ratio: 16 / 9; }
+      .fig-graphic-list { display: block; columns: 1; font-size: 11px; }
       .fig-h { font-size: clamp(36px, 11vw, 64px); }
 
       /* ── BRAND ── */
@@ -2020,11 +2023,21 @@
       </div>
       <div class="brand-strip" id="brand-strip-0">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers17.webp" style="background-image:none"></div><div class="brand-frame-num">06 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers18.webp" style="background-image:none"></div><div class="brand-frame-num">07 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers19.webp" style="background-image:none"></div><div class="brand-frame-num">08 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers20.webp" style="background-image:none"></div><div class="brand-frame-num">09 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers21.webp" style="background-image:none"></div><div class="brand-frame-num">10 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers22.webp" style="background-image:none"></div><div class="brand-frame-num">11 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers23.webp" style="background-image:none"></div><div class="brand-frame-num">12 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers24.webp" style="background-image:none"></div><div class="brand-frame-num">13 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers25.webp" style="background-image:none"></div><div class="brand-frame-num">14 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers26.webp" style="background-image:none"></div><div class="brand-frame-num">15 / 15</div></div>
       </div>
     </div>
 
