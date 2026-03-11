@@ -1330,11 +1330,11 @@
 
       /* ── GRAPHIC DESIGN ── */
       .fig-wrap { padding: 64px 20px 40px; gap: 12px; height: auto; }
-      .fig-graphic-top { grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
-      .fig-graphic-list { columns: 2; column-gap: 10px; font-size: 9px; line-height: 1.6; }
+      .fig-graphic-top { grid-template-columns: 1fr; gap: 10px; }
+      .fig-graphic-list { columns: 2; column-gap: 12px; font-size: 10px; line-height: 1.7; }
       .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 5px; }
-      .mitem { aspect-ratio: 3 / 2; }
-      .mitem.big { grid-column: span 2; grid-row: span 1; aspect-ratio: 16 / 7; }
+      .mitem { aspect-ratio: 1 / 1; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
 
       /* ── BRAND IDENTITY ── */
       .brand-header { grid-template-columns: 1fr; gap: 16px; padding: 72px 24px 48px; height: auto; min-height: calc(var(--vh, 1vh) * 100); }
@@ -1377,12 +1377,10 @@
         font-size: 10px;
         line-height: 1.7;
         padding: 8px 20px 10px;
-        background: rgba(255,255,255,0.72);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: rgba(255,255,255,0.92);
       }
       #photo .photo-overlay-list,
-      #photo .photo-overlay-list * { color: rgba(20, 14, 6, 0.95) !important; }
+      #photo .photo-overlay-list * { color: rgba(10, 8, 5, 1) !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none !important; }
@@ -1434,11 +1432,11 @@
       .wname { font-size: clamp(24px, 10vw, 42px); }
 
       /* ── GRAPHIC ── */
-      .fig-graphic-top { grid-template-columns: auto 1fr; gap: 12px; }
-      .fig-graphic-list { columns: 2; column-gap: 8px; font-size: 8.5px; line-height: 1.6; }
+      .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
+      .fig-graphic-list { columns: 2; column-gap: 10px; font-size: 9px; line-height: 1.65; }
       .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
-      .mitem { aspect-ratio: 3 / 2; }
-      .mitem.big { grid-column: span 2; grid-row: span 1; aspect-ratio: 16 / 7; }
+      .mitem { aspect-ratio: 1 / 1; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
       .fig-h { font-size: clamp(36px, 11vw, 64px); }
 
       /* ── BRAND ── */
@@ -3395,6 +3393,45 @@
     .fig-3d-list { margin-top: 4px; }
     .fig-3d-tag { text-align: right; margin-top: 4px; }
     .fig-3d-rendering { margin-top: -8px; }
+
+  /* ═══════════════════════════════════════════════════
+     LATE MOBILE OVERRIDES — must come after all desktop
+     rules to win on equal specificity
+  ═══════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
+    .fig-top.fig-graphic-top {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px;
+    }
+    .fig-graphic-list {
+      columns: 2 !important;
+      column-gap: 12px !important;
+      font-size: 10px !important;
+      line-height: 1.7 !important;
+    }
+    .masonry-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 5px !important;
+    }
+    .mitem {
+      aspect-ratio: 1 / 1 !important;
+    }
+    .mitem.big {
+      grid-column: span 2 !important;
+      grid-row: span 2 !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    /* ── PHOTOGRAPHY: dark text list ── */
+    #photo .photo-overlay-list,
+    #photo .photo-overlay-list * {
+      color: #1a1208 !important;
+    }
+  }
   </style>
 
 </div><!-- /app -->
