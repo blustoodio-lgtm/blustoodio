@@ -1329,11 +1329,12 @@
       .about-big { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── GRAPHIC DESIGN ── */
-      .fig-wrap { padding: 64px 20px 40px; gap: 16px; }
+      .fig-wrap { padding: 64px 20px 40px; gap: 16px; height: auto; }
       .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
       .fig-graphic-list { display: none; }
       .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
-      .mitem.big { grid-column: span 2; grid-row: span 2; }
+      .mitem { aspect-ratio: 1 / 1; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
 
       /* ── BRAND IDENTITY ── */
       .brand-header { grid-template-columns: 1fr; gap: 16px; padding: 72px 24px 48px; height: auto; min-height: calc(var(--vh, 1vh) * 100); }
@@ -1365,7 +1366,7 @@
       .brand-proj-title { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── PHOTOGRAPHY ── */
-      .photo-overlay-list { display: none; }
+      .photo-overlay-list { display: none !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none; }
@@ -3798,6 +3799,7 @@
           // ── Per-frame zoom on click ──
           frames.forEach(function(frame) {
             const img = frame.querySelector('.brand-frame-img');
+            const isTouchDevice = ('ontouchstart' in window);
 
             function updateZoom(clientX, clientY) {
               const r  = frame.getBoundingClientRect();
@@ -3806,35 +3808,59 @@
               img.style.backgroundPosition = px + '% ' + py + '%';
             }
 
-            frame.addEventListener('click', function(e) {
-              e.stopPropagation();
-              const wasZoomed = frame.classList.contains('zoomed');
-              // unzoom all frames in this strip first
-              frames.forEach(function(f) {
-                f.classList.remove('zoomed');
-                f.querySelector('.brand-frame-img').style.backgroundPosition = 'center';
+            if (isTouchDevice) {
+              // ── MOBILE: tap opens fullscreen overlay ──
+              frame.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const bg = img.getAttribute('data-bg') || img.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+                if (!bg) return;
+                var overlay = document.getElementById('mobileZoomOverlay');
+                if (!overlay) {
+                  overlay = document.createElement('div');
+                  overlay.id = 'mobileZoomOverlay';
+                  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+                  var zImg = document.createElement('div');
+                  zImg.id  = 'mobileZoomImg';
+                  zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
+                  overlay.appendChild(zImg);
+                  overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+                  document.body.appendChild(overlay);
+                }
+                var src = img.style.backgroundImage ? img.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '') : bg;
+                document.getElementById('mobileZoomImg').style.backgroundImage = "url('" + src + "')";
+                overlay.style.display = 'flex';
               });
-              if (!wasZoomed) {
-                frame.classList.add('zoomed');
+            } else {
+              // ── DESKTOP: click to zoom + mouse-pan ──
+              frame.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const wasZoomed = frame.classList.contains('zoomed');
+                frames.forEach(function(f) {
+                  f.classList.remove('zoomed');
+                  f.querySelector('.brand-frame-img').style.backgroundPosition = 'center';
+                });
+                if (!wasZoomed) {
+                  frame.classList.add('zoomed');
+                  updateZoom(e.clientX, e.clientY);
+                  if (cursor) cursor.classList.add('hidden');
+                } else {
+                  if (cursor) cursor.classList.remove('hidden');
+                }
+              });
+
+              frame.addEventListener('mousemove', function(e) {
+                if (!frame.classList.contains('zoomed')) return;
                 updateZoom(e.clientX, e.clientY);
-                if (cursor) cursor.classList.add('hidden');
-              } else {
-                if (cursor) cursor.classList.remove('hidden');
-              }
-            });
+              });
 
-            frame.addEventListener('mousemove', function(e) {
-              if (!frame.classList.contains('zoomed')) return;
-              updateZoom(e.clientX, e.clientY);
-            });
-
-            frame.addEventListener('mouseleave', function() {
-              if (frame.classList.contains('zoomed')) {
-                frame.classList.remove('zoomed');
-                img.style.backgroundPosition = 'center';
-                if (cursor) cursor.classList.remove('hidden');
-              }
-            });
+              frame.addEventListener('mouseleave', function() {
+                if (frame.classList.contains('zoomed')) {
+                  frame.classList.remove('zoomed');
+                  img.style.backgroundPosition = 'center';
+                  if (cursor) cursor.classList.remove('hidden');
+                }
+              });
+            }
           });
 
           // ── Snickers strip: force cursor to on-light (blue star) ──
@@ -3897,6 +3923,28 @@
 
         updateBrandState();
       })();
+
+      // ── Mobile: manual horizontal touch scroll for brand strips ──────────
+      if (window.innerWidth < 768 || ('ontouchstart' in window)) {
+        document.querySelectorAll('.brand-strip').forEach(function(strip) {
+          var touchStartX = 0, touchStartY = 0, scrollStart = 0, axis = null;
+          strip.addEventListener('touchstart', function(e) {
+            touchStartX  = e.touches[0].clientX;
+            touchStartY  = e.touches[0].clientY;
+            scrollStart  = strip.scrollLeft;
+            axis = null;
+          }, { passive: true });
+          strip.addEventListener('touchmove', function(e) {
+            var dx = touchStartX - e.touches[0].clientX;
+            var dy = Math.abs(touchStartY - e.touches[0].clientY);
+            if (!axis) axis = Math.abs(dx) > dy ? 'h' : 'v';
+            if (axis === 'h') {
+              e.preventDefault();
+              strip.scrollLeft = scrollStart + dx;
+            }
+          }, { passive: false });
+        });
+      }
 
       // ── PHOTO STRIP — drag scroll + click → modal ───────────────────────────
       (function() {
@@ -4138,27 +4186,46 @@
           if (ib) ib.style.backgroundPosition = px + '% ' + py + '%';
         }
         const illusCursor = document.getElementById('cursor');
-        main.addEventListener('click', (e) => {
-          main.classList.toggle('zoomed');
-          if (main.classList.contains('zoomed')) {
+        const isTouchDevice = ('ontouchstart' in window);
+
+        if (isTouchDevice) {
+          // MOBILE: tap opens fullscreen overlay
+          main.addEventListener('click', (e) => {
+            var overlay = document.getElementById('mobileZoomOverlay');
+            if (!overlay) {
+              overlay = document.createElement('div');
+              overlay.id = 'mobileZoomOverlay';
+              overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+              var zImg = document.createElement('div');
+              zImg.id  = 'mobileZoomImg';
+              zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
+              overlay.appendChild(zImg);
+              overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+              document.body.appendChild(overlay);
+            }
+            const src = inner.style.backgroundImage || (document.getElementById('illusMainInnerB') && document.getElementById('illusMainInnerB').style.opacity === '1' ? document.getElementById('illusMainInnerB').style.backgroundImage : inner.style.backgroundImage);
+            document.getElementById('mobileZoomImg').style.backgroundImage = src;
+            overlay.style.display = 'flex';
+          });
+        } else {
+          // DESKTOP: click to zoom + mouse-pan
+          main.addEventListener('click', (e) => {
+            main.classList.toggle('zoomed');
+            if (main.classList.contains('zoomed')) {
+              updateZoomPan(e.clientX, e.clientY);
+              if (illusCursor) illusCursor.classList.add('hidden');
+            } else {
+              inner.style.backgroundPosition = 'center';
+              const ib = document.getElementById('illusMainInnerB');
+              if (ib) ib.style.backgroundPosition = 'center';
+              if (illusCursor) illusCursor.classList.remove('hidden');
+            }
+          });
+          document.addEventListener('mousemove', (e) => {
+            if (!main.classList.contains('zoomed')) return;
             updateZoomPan(e.clientX, e.clientY);
-            if (illusCursor) illusCursor.classList.add('hidden');
-          } else {
-            inner.style.backgroundPosition = 'center';
-            const ib = document.getElementById('illusMainInnerB');
-            if (ib) ib.style.backgroundPosition = 'center';
-            if (illusCursor) illusCursor.classList.remove('hidden');
-          }
-        });
-        document.addEventListener('mousemove', (e) => {
-          if (!main.classList.contains('zoomed')) return;
-          updateZoomPan(e.clientX, e.clientY);
-        });
-        main.addEventListener('touchmove', (e) => {
-          if (!main.classList.contains('zoomed')) return;
-          e.preventDefault();
-          updateZoomPan(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: false });
+          });
+        }
 
         // keyboard
         document.addEventListener('keydown', (e) => {
