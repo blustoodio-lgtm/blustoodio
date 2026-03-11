@@ -243,7 +243,8 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      overflow: hidden;
+      overflow: clip;
+      width: max-content;
       max-height: 0;
       opacity: 0;
       transition: max-height 0.35s cubic-bezier(0.2,0.9,0.2,1),
@@ -1150,6 +1151,7 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-top: 24px;
+      padding-bottom: 64px;
     }
 
     .ritem {
@@ -1369,7 +1371,7 @@
       .photo-overlay-list {
         display: grid !important;
         top: auto !important;
-        bottom: 100px !important;
+        bottom: 118px !important;
         left: 20px !important;
         right: 20px !important;
         grid-template-columns: 1fr 1fr;
@@ -1807,8 +1809,10 @@
 
       <div>
         <div class="do-block-label">il team</div>
-        <div class="do-block-value">
-          Lukes<br>Perry<br>Bea<br>Gargio<br>Juan<br>Samu
+        <div class="do-block-value" style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;">
+          <span>Lukes</span><span>Gargio</span>
+          <span>Perry</span><span>Juan</span>
+          <span>Bea</span><span>Samu</span>
         </div>
       </div>
 
@@ -2361,7 +2365,7 @@
         </div>
 
         <!-- CTA thumb -->
-        <div class="illus-thumb illus-cta-thumb" onclick="go('do')" style="cursor:pointer;background:#0a00cc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;filter:brightness(1);">
+        <div class="illus-cta-thumb" onclick="go('do')" style="cursor:pointer;background:#0a00cc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:100%;aspect-ratio:1/1;flex-shrink:0;">
           <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-transform:lowercase;">coming soon..</span>
           <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:13px;letter-spacing:-0.01em;color:#fff;text-transform:uppercase;text-align:center;line-height:1.1;">your<br>project!</span>
         </div>
@@ -2526,16 +2530,6 @@
         </div>
 
         <div class="ritem"
-             data-title="Maschera — The Wanderer"
-             data-meta="3D Rendering · Character · 2024"
-             data-desc="Personaggio misterioso con maschera di iuta sgualcita al posto della testa, che esplora ambienti abbandonati con una torcia. Texturing realistico, lighting da dungeon, atmosfera horror-survival."
-             data-img="images/Render Maschera1.webp"
-             data-gallery="images/Render Maschera1.webp|images/Render Maschera2.webp|images/Render Maschera3.webp">
-          <div class="ritem-img" style="background-image:url('images/Render Maschera1.webp'); background-position: center 20%;"></div>
-          <div class="ritem-cap"><span class="ritem-num">(12)*</span><span class="ritem-cap-title">Maschera — The Wanderer</span></div>
-        </div>
-
-        <div class="ritem"
              data-title="Orco — Desert Colossus"
              data-meta="3D Rendering · Creature Design · 2024"
              data-desc="Creatura massiccia teal e gialla, occhi dorati, collana ruggine, ambientata in un paesaggio desertico e arido. Modellazione organica con texture sculpted, rendering PBR ad alta definizione."
@@ -2546,12 +2540,12 @@
         </div>
 
         <!-- CTA ritem -->
-        <div class="ritem" onclick="go('do')" style="cursor:pointer;background:#1400FF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+        <div class="ritem ritem-no-modal" onclick="go('do')" style="cursor:pointer;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
           <div class="ritem-img" style="background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-            <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-transform:lowercase;">coming soon..</span>
-            <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:clamp(16px,1.8vw,24px);letter-spacing:-0.02em;color:#fff;text-transform:uppercase;text-align:center;">your project!</span>
+            <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:0.12em;color:rgba(0,0,200,0.45);text-transform:lowercase;">coming soon..</span>
+            <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:clamp(16px,1.8vw,24px);letter-spacing:-0.02em;color:#1400FF;text-transform:uppercase;text-align:center;">your project!</span>
           </div>
-          <div class="ritem-cap"><span class="ritem-num">(14)*</span><span class="ritem-cap-title">Your Project</span></div>
+          <div class="ritem-cap"><span class="ritem-num" style="color:rgba(0,0,200,0.3);">(14)*</span><span class="ritem-cap-title" style="color:#1400FF;">Your Project</span></div>
         </div>
 
       </div>
@@ -2656,7 +2650,7 @@
       grid-auto-rows: auto;
       gap: 5px;
       margin-top: 8px;
-      margin-bottom: 48px;
+      margin-bottom: 120px;
     }
 
     .mitem {
@@ -2791,14 +2785,15 @@
     /* ── DO / CONTACTS PAGE ───────────────────────────── */
     #do {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      overflow-y: auto;
     }
     .do-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px 80px;
-      padding: 60px 48px;
+      gap: 36px 80px;
+      padding: 48px 48px 80px;
       max-width: 900px;
       width: 100%;
       align-items: start;
@@ -2809,7 +2804,7 @@
     .do-headline-big {
       font-family: 'Poppins', sans-serif;
       font-weight: 900;
-      font-size: clamp(56px, 9vw, 120px);
+      font-size: clamp(48px, 7vw, 96px);
       line-height: 0.88;
       letter-spacing: -0.03em;
       color: var(--blu);
@@ -2880,7 +2875,7 @@
       border-radius: 3px;
     }
     .fig-wrap {
-      padding: 24px 24px 72px;
+      padding: 24px 24px 200px;
       padding-top: 70px;
       display: flex;
       flex-direction: column;
@@ -3389,8 +3384,9 @@
     /* services list — sits just above PHOTOGRAPHY title */
     .photo-overlay-list {
       position: absolute;
-      bottom: 160px;
-      left: 28px;
+      bottom: 24px;
+      right: 80px;
+      left: auto;
       z-index: 10;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -4184,6 +4180,7 @@
 
         // click → open single photo bigger (only if not a drag)
         items.forEach(item => {
+          if (item.classList.contains('photo-cta-item')) return;
           item.style.cursor = 'pointer';
           item.addEventListener('click', () => {
             if (hasDragged) return;
@@ -4209,7 +4206,7 @@
       });
 
       // .ritem (masonry rendering cards)
-      document.querySelectorAll('.ritem').forEach(item => {
+      document.querySelectorAll('.ritem:not(.ritem-no-modal)').forEach(item => {
         item.addEventListener('click', () => {
           const title   = item.dataset.title   || item.querySelector('.ritem-cap')?.textContent.trim() || 'Untitled';
           const meta    = item.dataset.meta    || '';
