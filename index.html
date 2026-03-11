@@ -1055,7 +1055,7 @@
       background-size: 220%;
       transition: background-position 0.6s cubic-bezier(0.25,0.46,0.45,0.94), background-size 0.35s ease;
     }
-    /* hide the <img> tag — we use the bg divs instead */
+    /* hide the <img loading="lazy"> tag — we use the bg divs instead */
     .illus-spotlight-img { display: none; }
     .illus-spotlight-caption { z-index: 3; }
 
@@ -1332,8 +1332,8 @@
       .fig-wrap { padding: 64px 20px 40px; gap: 20px; }
       .fig-graphic-top { grid-template-columns: 1fr; gap: 12px; }
       .fig-graphic-list { columns: 2; column-gap: 16px; }
-      .masonry-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-      .mitem.big { grid-column: span 1; grid-row: span 1; }
+      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; }
 
       /* ── BRAND IDENTITY ── */
       .brand-header { grid-template-columns: 1fr; gap: 16px; padding: 72px 24px 48px; height: auto; min-height: calc(var(--vh, 1vh) * 100); }
@@ -1353,7 +1353,7 @@
       /* ── PHOTOGRAPHY ── */
       .photo-overlay-list {
         top: auto;
-        bottom: 130px;
+        bottom: 108px;
         left: 20px;
         right: 20px;
         grid-template-columns: 1fr 1fr;
@@ -1361,10 +1361,10 @@
         font-size: 10px;
         line-height: 1.7;
       }
-      .photo-overlay-title .fig-h { font-size: clamp(36px, 11vw, 64px); }
-      .photo-overlay-title { bottom: 16px; left: 20px; }
+      .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
+      .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none; }
-      .photo-counter { bottom: 16px; right: 16px; font-size: 10px; }
+      .photo-counter { bottom: 14px; right: 16px; font-size: 10px; }
 
       /* ── ILLUSTRATION ── */
       .illus-spotlight-wrap { grid-template-columns: 1fr 120px; }
@@ -1834,7 +1834,7 @@
         <!-- (05) Matera — big 2×2 TOP LEFT -->
         <div class="mitem big" data-title="Piccola Orchestra Materana Onyx" data-meta="Graphic Design · Music · OnyxDischi · LABA Brescia" data-desc="Art direction e packaging per il CD della Piccola Orchestra Materana Onyx, produzione OnyxDischi. Lettering custom a mano libera." data-gallery="images/Matera1.webp|images/Matera2.webp|images/Matera3.webp|images/Matera4.webp|images/Matera5.webp" data-modal-ar="4/3">
           <div class="mnum">(01)</div>
-          <img class="mimg" src="images/Matera1.webp" alt="Matera"/>
+          <img loading="lazy" class="mimg" src="images/Matera1.webp" alt="Matera"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Orch. Materana</div>
         </div>
@@ -1842,7 +1842,7 @@
         <!-- (01) Jazz — portrait poster -->
         <div class="mitem" data-title="JAZZ — Poster Series" data-meta="Graphic Design · 2024" data-desc="Poster illustrato per un evento jazz parigino. Tipografia a insegna luminosa e composizione notturna con musicisti sui balconi." data-gallery="images/Jazz3.webp|images/Jazz2.webp|images/Jazz1.webp" data-modal-ar="3/4">
           <div class="mnum">(02)</div>
-          <img class="mimg" src="images/Jazz3.webp" alt="JAZZ Poster"/>
+          <img loading="lazy" class="mimg" src="images/Jazz3.webp" alt="JAZZ Poster"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">JAZZ</div>
         </div>
@@ -1850,7 +1850,7 @@
         <!-- (04) Giorni Scalzi — square album -->
         <div class="mitem" data-title="Album Cover — Giorni Scalzi" data-meta="Graphic Design · Music · Free Roam Records" data-desc="Copertina, CD e vinile per l'album 'Giorni Scalzi' di Usezia, pubblicato da Free Roam Records." data-gallery="images/GiorniScalzi1.webp|images/GiorniScalzi2.webp|images/GiorniScalzi3.webp" data-modal-ar="1/1">
           <div class="mnum">(03)</div>
-          <img class="mimg" src="images/GiorniScalzi1.webp" alt="Giorni Scalzi"/>
+          <img loading="lazy" class="mimg" src="images/GiorniScalzi1.webp" alt="Giorni Scalzi"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Giorni Scalzi</div>
         </div>
@@ -1858,7 +1858,7 @@
         <!-- (06) Solene — portrait poster -->
         <div class="mitem" data-title="Solene — Film Poster" data-meta="Graphic Design · Film · Lanterne Maudit Films" data-desc="Shooting fotografico e post-produzione per la campagna poster del film horror 'Solene', scritto e diretto da Jocelyne Morel." data-gallery="images/Solene1.webp|images/Solene2.webp|images/Solene3.webp|images/Solene4.webp" data-modal-ar="3/4">
           <div class="mnum">(04)</div>
-          <img class="mimg" src="images/Solene1.webp" alt="Solene"/>
+          <img loading="lazy" class="mimg" src="images/Solene1.webp" alt="Solene"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Solene</div>
         </div>
@@ -1866,7 +1866,7 @@
         <!-- (05) Garage — fills row 1 gap -->
         <div class="mitem" data-title="Moltobene Magazine — Nel garage segreto del Conte" data-meta="Graphic Design · Editorial · LABA Brescia" data-desc="Impaginazione editoriale per Moltobene, rivista indipendente di LABA Brescia. Articolo dedicato al Conte, figura leggendaria dell'automobilismo italiano." data-gallery="images/Macchine1.webp|images/Macchine2.webp|images/Macchine3.webp|images/Macchine4.webp" data-modal-ar="16/9">
           <div class="mnum">(05)</div>
-          <img class="mimg" src="images/Macchine1.webp" alt="Moltobene"/>
+          <img loading="lazy" class="mimg" src="images/Macchine1.webp" alt="Moltobene"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Moltobene Magazine</div>
         </div>
@@ -1874,7 +1874,7 @@
         <!-- (06) Inferno — big 2×2 -->
         <div class="mitem big" data-title="Viaggio all'Inferno senza Ritorno" data-meta="Graphic Design · Editorial · Moltobene Magazine" data-desc="Impaginazione editoriale per Moltobene Magazine. Articolo sul ciclo di affreschi medievali dell'Inferno tra Lonato e Brescia." data-gallery="images/Inferno2.webp|images/Inferno1.webp|images/Inferno3.webp|images/Inferno4.webp|images/Inferno5.webp" data-modal-ar="16/9">
           <div class="mnum">(06)</div>
-          <img class="mimg" src="images/InfernoThumb.webp" alt="Inferno" style="object-position:center 38%"/>
+          <img loading="lazy" class="mimg" src="images/InfernoThumb.webp" alt="Inferno" style="object-position:center 38%"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">All'Inferno</div>
         </div>
@@ -1882,7 +1882,7 @@
         <!-- (07) DOOM -->
         <div class="mitem" data-title="DOOM — Vinyl Artwork" data-meta="Graphic Design · Music · 2024" data-desc="Cover art e mockup vinile per il progetto musicale DOOM. Illustrazione pittorica su campo rosso con tipografia a pennello." data-gallery="images/GD_doom.webp" data-modal-ar="4/3">
           <div class="mnum">(07)</div>
-          <img class="mimg" src="images/GD_doom.webp" alt="DOOM Vinyl"/>
+          <img loading="lazy" class="mimg" src="images/GD_doom.webp" alt="DOOM Vinyl"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">DOOM — Vinyl Artwork</div>
         </div>
@@ -1890,7 +1890,7 @@
         <!-- (08) Entropia — vinyl mockups -->
         <div class="mitem" data-title="Entropia — Lobotomia" data-meta="Graphic Design · Music · Cool Cats Production · 2025" data-desc="Art direction completa per il progetto Entropia: packaging CD doppio per l'album Lobotomia e poster tour con date live in tutta Italia." data-gallery="images/GD_entropia1.webp|images/GD_entropia2.webp" data-modal-ar="1/1">
           <div class="mnum">(08)</div>
-          <img class="mimg" src="images/GD_entropia1.webp" alt="Entropia"/>
+          <img loading="lazy" class="mimg" src="images/GD_entropia1.webp" alt="Entropia"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Entropia — Lobotomia</div>
         </div>
@@ -1898,7 +1898,7 @@
         <!-- (09) Poster Brutalista -->
         <div class="mitem" data-title="Poster Brutalista — Series" data-meta="Graphic Design · Editorial · 2024" data-desc="Serie di poster in stile brutalista su temi filosofici e culturali: cosmologia, realtà, derealization, identità urbana, Godzilla." data-gallery="images/GD_brutalista1.webp|images/GD_brutalista2.webp|images/GD_brutalista3.webp|images/GD_brutalista4.webp|images/GD_brutalista5.webp" data-modal-ar="4/5">
           <div class="mnum">(09)</div>
-          <img class="mimg" src="images/GD_brutalista2.webp" alt="Poster Brutalista"/>
+          <img loading="lazy" class="mimg" src="images/GD_brutalista2.webp" alt="Poster Brutalista"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Poster Brutalista — Series</div>
         </div>
@@ -1906,7 +1906,7 @@
         <!-- (10) Amos Sariel Trilogy — big 2×2 -->
         <div class="mitem" data-title="Amos Sariel — Trilogia" data-meta="Graphic Design · Book Cover · Publishing · Lumen Editrice" data-desc="Art direction e cover design per la trilogia fantasy di Amos Sariel pubblicata da Lumen Editrice: Inanis, Ego, Aeternum. Cofanetto collector's edition con illustrazioni originali su formato 21×29 cm." data-gallery="images/GD_aeternum.webp|images/GD_ego.webp|images/GD_inanis.webp|images/GD_cofanetto.webp|images/GD_cofanetto2.webp" data-modal-ar="1/1">
           <div class="mnum">(10)</div>
-          <img class="mimg" src="images/GD_aeternum.webp" alt="Amos Sariel Trilogia"/>
+          <img loading="lazy" class="mimg" src="images/GD_aeternum.webp" alt="Amos Sariel Trilogia"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">Amos Sariel — Trilogia</div>
         </div>
@@ -1914,7 +1914,7 @@
         <!-- (11) La Commedia — Book Design -->
         <div class="mitem" data-title="La Divina Commedia — Book Design" data-meta="Graphic Design · Editorial · Publishing · 2024" data-desc="Book design e impaginazione editoriale per un'edizione illustrata della Divina Commedia. Tipografia arcuata ispirata alla struttura dei cerchi danteschi, illustrazioni a collage su sfondo notturno, mockup libro aperto." data-gallery="images/GD_commedia3.webp|images/GD_commedia4.webp|images/GD_commedia1.webp|images/GD_commedia2.webp" data-modal-ar="1/1">
           <div class="mnum">(11)</div>
-          <img class="mimg" src="images/GD_commedia1.webp" alt="La Commedia Book Design"/>
+          <img loading="lazy" class="mimg" src="images/GD_commedia1.webp" alt="La Commedia Book Design"/>
           <div class="mitem-overlay"></div>
           <div class="mcap">La Divina Commedia</div>
         </div>
@@ -1998,10 +1998,10 @@
       </div>
       <div class="brand-strip" id="brand-strip-0">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Snickers7.webp')"></div><div class="brand-frame-num">02 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Snickers3.webp')"></div><div class="brand-frame-num">03 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Snickers15.webp')"></div><div class="brand-frame-num">04 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Snickers9.webp')"></div><div class="brand-frame-num">05 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 05</div></div>
       </div>
     </div>
 
@@ -2019,10 +2019,10 @@
       </div>
       <div class="brand-strip" id="brand-strip-1">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Pezzotti1.webp')"></div><div class="brand-frame-num">01 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Pezzotti3.webp')"></div><div class="brand-frame-num">02 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Pezzotti5.webp')"></div><div class="brand-frame-num">03 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Pezzotti2.webp')"></div><div class="brand-frame-num">04 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Pezzotti1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Pezzotti3.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Pezzotti5.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Pezzotti2.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 04</div></div>
       </div>
     </div>
 
@@ -2040,10 +2040,10 @@
       </div>
       <div class="brand-strip" id="brand-strip-2">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Shuttered1.webp')"></div><div class="brand-frame-num">01 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Shuttered3.webp')"></div><div class="brand-frame-num">02 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Shuttered5.webp')"></div><div class="brand-frame-num">03 / 04</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" style="background-image:url('images/Shuttered2.webp')"></div><div class="brand-frame-num">04 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Shuttered1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Shuttered3.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Shuttered5.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 04</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Shuttered2.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 04</div></div>
       </div>
     </div>
 
@@ -2075,133 +2075,133 @@
            data-caption="01 — Moto · Kawasaki Ninja"
            data-title="Moto — Kawasaki Ninja"
            data-img="images/Moto1.webp">
-        <img src="images/Moto1.webp" alt="Kawasaki Ninja">
+        <img loading="lazy" src="images/Moto1.webp" alt="Kawasaki Ninja">
       </div>
       <div class="photo-strip-item"
            data-caption="02 — Portrait · Live Music"
            data-title="Portrait — Live Music"
            data-img="images/Concert4.webp">
-        <img src="images/Concert4.webp" alt="Portrait Live Music">
+        <img loading="lazy" src="images/Concert4.webp" alt="Portrait Live Music">
       </div>
       <div class="photo-strip-item"
            data-caption="03 — Snickers · Editorial"
            data-title="Snickers — Editorial"
            data-img="images/Snickers19.webp">
-        <img src="images/Snickers19.webp" alt="Snickers Editorial">
+        <img loading="lazy" src="images/Snickers19.webp" alt="Snickers Editorial">
       </div>
       <div class="photo-strip-item"
            data-caption="04 — Live · Piccola Orchestra Materana"
            data-title="Live — Piccola Orchestra Materana"
            data-img="images/Concert2.webp">
-        <img src="images/Concert2.webp" alt="Live Piccola Orchestra Materana">
+        <img loading="lazy" src="images/Concert2.webp" alt="Live Piccola Orchestra Materana">
       </div>
       <div class="photo-strip-item"
            data-caption="05 — Non Sono Nessuno · Cover Art"
            data-title="Non Sono Nessuno — Cover Art"
            data-img="images/Concert3.webp">
-        <img src="images/Concert3.webp" alt="Non Sono Nessuno Cover Art">
+        <img loading="lazy" src="images/Concert3.webp" alt="Non Sono Nessuno Cover Art">
       </div>
       <div class="photo-strip-item"
            data-caption="06 — Snickers · Still Life"
            data-title="Snickers — Still Life"
            data-img="images/Snickers17.webp">
-        <img src="images/Snickers17.webp" alt="Snickers Still Life">
+        <img loading="lazy" src="images/Snickers17.webp" alt="Snickers Still Life">
       </div>
       <div class="photo-strip-item"
            data-caption="07 — Snickers · Product"
            data-title="Snickers — Product"
            data-img="images/Snickers18.webp">
-        <img src="images/Snickers18.webp" alt="Snickers Product">
+        <img loading="lazy" src="images/Snickers18.webp" alt="Snickers Product">
       </div>
       <div class="photo-strip-item"
            data-caption="08 — Snickers · Packaging"
            data-title="Snickers — Packaging"
            data-img="images/Snickers20.webp">
-        <img src="images/Snickers20.webp" alt="Snickers Packaging">
+        <img loading="lazy" src="images/Snickers20.webp" alt="Snickers Packaging">
       </div>
       <div class="photo-strip-item"
            data-caption="09 — Snickers · Packaging"
            data-title="Snickers — Packaging"
            data-img="images/Snickers21.webp">
-        <img src="images/Snickers21.webp" alt="Snickers Packaging">
+        <img loading="lazy" src="images/Snickers21.webp" alt="Snickers Packaging">
       </div>
       <div class="photo-strip-item"
            data-caption="10 — Snickers · Receipt"
            data-title="Snickers — Receipt"
            data-img="images/Snickers22.webp">
-        <img src="images/Snickers22.webp" alt="Snickers Receipt">
+        <img loading="lazy" src="images/Snickers22.webp" alt="Snickers Receipt">
       </div>
       <div class="photo-strip-item"
            data-caption="11 — Snickers · Stationery"
            data-title="Snickers — Stationery"
            data-img="images/Snickers23.webp">
-        <img src="images/Snickers23.webp" alt="Snickers Stationery">
+        <img loading="lazy" src="images/Snickers23.webp" alt="Snickers Stationery">
       </div>
       <div class="photo-strip-item"
            data-caption="12 — Snickers · Still Life"
            data-title="Snickers — Still Life"
            data-img="images/Snickers24.webp">
-        <img src="images/Snickers24.webp" alt="Snickers Still Life">
+        <img loading="lazy" src="images/Snickers24.webp" alt="Snickers Still Life">
       </div>
       <div class="photo-strip-item"
            data-caption="13 — Snickers · Product"
            data-title="Snickers — Product"
            data-img="images/Snickers25.webp">
-        <img src="images/Snickers25.webp" alt="Snickers Product">
+        <img loading="lazy" src="images/Snickers25.webp" alt="Snickers Product">
       </div>
       <div class="photo-strip-item"
            data-caption="14 — Snickers · Chocolate"
            data-title="Snickers — Chocolate"
            data-img="images/Snickers26.webp">
-        <img src="images/Snickers26.webp" alt="Snickers Chocolate">
+        <img loading="lazy" src="images/Snickers26.webp" alt="Snickers Chocolate">
       </div>
       <div class="photo-strip-item"
            data-caption="15 — Moto · Corner Sparks"
            data-title="Moto — Corner Sparks"
            data-img="images/Moto2.webp">
-        <img src="images/Moto2.webp" alt="Moto corner sparks">
+        <img loading="lazy" src="images/Moto2.webp" alt="Moto corner sparks">
       </div>
       <div class="photo-strip-item"
            data-caption="16 — Moto · Engine Gin"
            data-title="Moto — Engine Gin"
            data-img="images/Moto3.webp">
-        <img src="images/Moto3.webp" alt="Engine Gin">
+        <img loading="lazy" src="images/Moto3.webp" alt="Engine Gin">
       </div>
       <div class="photo-strip-item"
            data-caption="17 — Moto · Kawasaki Z"
            data-title="Moto — Kawasaki Z"
            data-img="images/Moto4.webp">
-        <img src="images/Moto4.webp" alt="Kawasaki Z">
+        <img loading="lazy" src="images/Moto4.webp" alt="Kawasaki Z">
       </div>
       <div class="photo-strip-item"
            data-caption="18 — Moto · Ninja 636"
            data-title="Moto — Ninja 636"
            data-img="images/Moto5.webp">
-        <img src="images/Moto5.webp" alt="Kawasaki Ninja 636">
+        <img loading="lazy" src="images/Moto5.webp" alt="Kawasaki Ninja 636">
       </div>
       <div class="photo-strip-item"
            data-caption="19 — Moto · Harley Lean"
            data-title="Moto — Harley Lean"
            data-img="images/Moto6.webp">
-        <img src="images/Moto6.webp" alt="Harley lean">
+        <img loading="lazy" src="images/Moto6.webp" alt="Harley lean">
       </div>
       <div class="photo-strip-item"
            data-caption="20 — Portrait · B&amp;W"
            data-title="Portrait — B&amp;W"
            data-img="images/Portrait1.webp">
-        <img src="images/Portrait1.webp" alt="Portrait B&W">
+        <img loading="lazy" src="images/Portrait1.webp" alt="Portrait B&W">
       </div>
       <div class="photo-strip-item"
            data-caption="21 — Raticosa · Moto Event"
            data-title="Raticosa — Moto Event"
            data-img="images/Raticosa1.webp">
-        <img src="images/Raticosa1.webp" alt="Raticosa Moto Event">
+        <img loading="lazy" src="images/Raticosa1.webp" alt="Raticosa Moto Event">
       </div>
       <div class="photo-strip-item"
            data-caption="22 — Portrait · Rider"
            data-title="Portrait — Rider"
            data-img="images/Portrait2.webp">
-        <img src="images/Portrait2.webp" alt="Portrait Rider">
+        <img loading="lazy" src="images/Portrait2.webp" alt="Portrait Rider">
       </div>
     </div>
 
@@ -2255,10 +2255,10 @@
 
       <!-- Big featured image -->
       <div class="illus-spotlight-main" id="illusMain">
-        <div class="illus-spotlight-blur" id="illusMainBlur" style="background-image:url('images/Illus_darkhorror.webp')"></div>
-        <div class="illus-spotlight-inner"   id="illusMainInner"  style="background-image:url('images/Illus_darkhorror.webp')"></div>
-        <div class="illus-spotlight-inner-b" id="illusMainInnerB" style="background-image:url('images/Illus_darkhorror.webp')"></div>
-        <img class="illus-spotlight-img" id="illusMainImg" src="images/Illus_darkhorror.webp" alt="Dark Horror">
+        <div class="illus-spotlight-blur" id="illusMainBlur" data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
+        <div class="illus-spotlight-inner"   id="illusMainInner"  data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
+        <div class="illus-spotlight-inner-b" id="illusMainInnerB" data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
+        <img loading="lazy" class="illus-spotlight-img" id="illusMainImg" src="images/Illus_darkhorror.webp" alt="Dark Horror">
         <div class="illus-spotlight-caption">
           <div class="illus-spotlight-title" id="illusMainTitle">Dark Horror</div>
           <div class="illus-spotlight-desc"  id="illusMainDesc">Digital illustration — horror character scene.</div>
@@ -2268,46 +2268,46 @@
       <!-- Thumbnail strip -->
       <div class="illus-thumb-panel" id="illusThumbPanel">
         <div class="illus-thumb active" data-img="images/Illus_darkhorror.webp" data-title="Dark Horror" data-desc="Illustrazione digitale — scena con personaggio horror.">
-          <img src="images/Illus_darkhorror.webp" alt="Dark Horror">
+          <img loading="lazy" src="images/Illus_darkhorror.webp" alt="Dark Horror">
         </div>
         <div class="illus-thumb" data-img="images/Illus_freakybites.webp" data-title="Freaky Bites" data-desc="Packaging illustrato per scatola di cereali.">
-          <img src="images/Illus_freakybites.webp" alt="Freaky Bites">
+          <img loading="lazy" src="images/Illus_freakybites.webp" alt="Freaky Bites">
         </div>
         <div class="illus-thumb" data-img="images/Illus_skater.webp" data-title="This Is Nut Commercial" data-desc="Illustrazione digitale — personaggio skater per spot pubblicitario.">
-          <img src="images/Illus_skater.webp" alt="This Is Nut Commercial">
+          <img loading="lazy" src="images/Illus_skater.webp" alt="This Is Nut Commercial">
         </div>
         <div class="illus-thumb" data-img="images/Illus_idontcare.webp" data-title="I Don't Care" data-desc="Illustrazione digitale — personaggio alieno blu.">
-          <img src="images/Illus_idontcare.webp" alt="I Don't Care">
+          <img loading="lazy" src="images/Illus_idontcare.webp" alt="I Don't Care">
         </div>
         <div class="illus-thumb" data-img="images/Illus_momstop.webp" data-title="Mom Stop!" data-desc="Illustrazione digitale — ritratto di personaggio espressivo.">
-          <img src="images/Illus_momstop.webp" alt="Mom Stop!">
+          <img loading="lazy" src="images/Illus_momstop.webp" alt="Mom Stop!">
         </div>
         <div class="illus-thumb" data-img="images/Illus_guitarist.webp" data-title="Guitarist" data-desc="Illustrazione digitale — personaggio chitarrista punk.">
-          <img src="images/Illus_guitarist.webp" alt="Guitarist">
+          <img loading="lazy" src="images/Illus_guitarist.webp" alt="Guitarist">
         </div>
         <div class="illus-thumb" data-img="images/Illus_smoking.webp" data-title="Portrait" data-desc="Illustrazione digitale — ritratto stilizzato di personaggio.">
-          <img src="images/Illus_smoking.webp" alt="Portrait">
+          <img loading="lazy" src="images/Illus_smoking.webp" alt="Portrait">
         </div>
         <div class="illus-thumb" data-img="images/Illus_oldman.webp" data-title="Old Man" data-desc="Illustrazione digitale — ritratto espressivo di vecchio.">
-          <img src="images/Illus_oldman.webp" alt="Old Man">
+          <img loading="lazy" src="images/Illus_oldman.webp" alt="Old Man">
         </div>
         <div class="illus-thumb" data-img="images/Char_pig.webp" data-title="Pig" data-desc="Illustrazione digitale — personaggio maiale demoniaco.">
-          <img src="images/Char_pig.webp" alt="Pig">
+          <img loading="lazy" src="images/Char_pig.webp" alt="Pig">
         </div>
         <div class="illus-thumb" data-img="images/Char_steel.webp" data-title="Iron Hollow — Full Party" data-desc="Lineup completo del party — tutti i personaggi insieme.">
-          <img src="images/Char_steel.webp" alt="Iron Hollow — Full Party">
+          <img loading="lazy" src="images/Char_steel.webp" alt="Iron Hollow — Full Party">
         </div>
         <div class="illus-thumb" data-img="images/Char_grim.webp" data-title="Iron Hollow — Grim" data-desc="Scheda character design — Grim, classe guerriero nano.">
-          <img src="images/Char_grim.webp" alt="Iron Hollow — Grim">
+          <img loading="lazy" src="images/Char_grim.webp" alt="Iron Hollow — Grim">
         </div>
         <div class="illus-thumb" data-img="images/Char_pax.webp" data-title="Iron Hollow — Pax" data-desc="Scheda character design — Pax, protagonista eroe.">
-          <img src="images/Char_pax.webp" alt="Iron Hollow — Pax">
+          <img loading="lazy" src="images/Char_pax.webp" alt="Iron Hollow — Pax">
         </div>
         <div class="illus-thumb" data-img="images/Char_ogrim.webp" data-title="Iron Hollow — Ogrim" data-desc="Scheda character design — Ogrim, nemico mostro.">
-          <img src="images/Char_ogrim.webp" alt="Iron Hollow — Ogrim">
+          <img loading="lazy" src="images/Char_ogrim.webp" alt="Iron Hollow — Ogrim">
         </div>
         <div class="illus-thumb" data-img="images/Char_max.webp" data-title="Iron Hollow — Max" data-desc="Scheda character design — Max, combattente con la spada.">
-          <img src="images/Char_max.webp" alt="Iron Hollow — Max">
+          <img loading="lazy" src="images/Char_max.webp" alt="Iron Hollow — Max">
         </div>
       </div>
 
@@ -3573,7 +3573,8 @@
       if (cur === 'home') return;
       const dx = tStartX - e.changedTouches[0].clientX; // positive = swipe left
       const dy = Math.abs(tStartY - e.changedTouches[0].clientY);
-      if (dx > 80 && dy < dx / AXIS_RATIO) {
+      const swipeThresh = window.innerWidth < 768 ? 50 : 80;
+      if (dx > swipeThresh && dy < dx / AXIS_RATIO) {
         const el = document.elementFromPoint(tStartX, tStartY);
         tryGoHome(el);
       }
@@ -3589,7 +3590,7 @@
     let accumulated = 0;
     let scrollLocked = false;
     let idleTimer = null;
-    const THRESHOLD = 300;
+    const THRESHOLD = window.innerWidth < 768 ? 140 : 300;
 
     _heroSpans.forEach(el => { el.style.willChange = 'transform, opacity'; });
 
@@ -4101,6 +4102,23 @@
         main.addEventListener('wheel',  onWheel, { passive: false });
         panel.addEventListener('wheel', onWheel, { passive: false });
 
+        // ── touch swipe on main image to go prev/next (mobile) ──
+        let illusTouchStartX = 0, illusTouchStartY = 0;
+        main.addEventListener('touchstart', function(e) {
+          illusTouchStartX = e.touches[0].clientX;
+          illusTouchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        main.addEventListener('touchend', function(e) {
+          if (main.classList.contains('zoomed')) return;
+          const dx = illusTouchStartX - e.changedTouches[0].clientX;
+          const dy = Math.abs(illusTouchStartY - e.changedTouches[0].clientY);
+          if (Math.abs(dx) > 40 && dy < Math.abs(dx) * 0.6) return; // horizontal = page nav
+          const swipeUp = e.changedTouches[0].clientY - illusTouchStartY < -40;
+          const swipeDown = e.changedTouches[0].clientY - illusTouchStartY > 40;
+          if (swipeUp)   showImage(currentIdx + 1);
+          if (swipeDown) showImage(currentIdx - 1);
+        }, { passive: true });
+
         // ── zoom ──────────────────────────────────────────────────────────
         function updateZoomPan(clientX, clientY) {
           const r  = main.getBoundingClientRect();
@@ -4584,6 +4602,29 @@
 
     // start the RAF loop
     updateCursor();
+  })();
+</script>
+
+<script>
+  // ── LAZY LOAD background-image elements ─────────────────────────────────
+  (function() {
+    const bgObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const bg = el.getAttribute('data-bg');
+          if (bg) {
+            el.style.backgroundImage = "url('" + bg + "')";
+            el.removeAttribute('data-bg');
+          }
+          bgObserver.unobserve(el);
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    document.querySelectorAll('[data-bg]').forEach(function(el) {
+      bgObserver.observe(el);
+    });
   })();
 </script>
 </body>
