@@ -1329,11 +1329,12 @@
       .about-big { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── GRAPHIC DESIGN ── */
-      .fig-wrap { padding: 64px 20px 40px; gap: 20px; }
-      .fig-graphic-top { grid-template-columns: 1fr; gap: 12px; }
-      .fig-graphic-list { columns: 2; column-gap: 16px; }
-      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
-      .mitem.big { grid-column: span 2; grid-row: span 2; }
+      .fig-wrap { padding: 64px 20px 40px; gap: 12px; height: auto; }
+      .fig-graphic-top { grid-template-columns: 1fr; gap: 10px; }
+      .fig-graphic-list { columns: 2; column-gap: 12px; font-size: 10px; line-height: 1.7; }
+      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 5px; }
+      .mitem { aspect-ratio: 1 / 1; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
 
       /* ── BRAND IDENTITY ── */
       .brand-header { grid-template-columns: 1fr; gap: 16px; padding: 72px 24px 48px; height: auto; min-height: calc(var(--vh, 1vh) * 100); }
@@ -1344,33 +1345,57 @@
         min-height: calc(var(--vh, 1vh) * 100);
       }
       .brand-text-col { padding: 60px 24px 28px; }
-      .brand-strip { height: 56vw; scroll-snap-type: none; }
-      .brand-frame { height: 56vw; }
+      .brand-strip {
+        height: 72vw;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .brand-frame {
+        height: 72vw;
+        min-width: 88vw;
+        width: 88vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
       .brand-strip-hint { display: none; }
       .brand-dot-nav { display: none; }
       .brand-proj-title { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── PHOTOGRAPHY ── */
       .photo-overlay-list {
-        top: auto;
-        bottom: 108px;
-        left: 20px;
-        right: 20px;
+        display: grid !important;
+        top: 56px;
+        bottom: auto;
+        left: 0;
+        right: 0;
         grid-template-columns: 1fr 1fr;
-        gap: 0 12px;
+        gap: 0 8px;
         font-size: 10px;
         line-height: 1.7;
+        padding: 8px 20px 10px;
+        background: none;
       }
+      #photo .photo-overlay-list,
+      #photo .photo-overlay-list * { color: rgba(10, 8, 5, 1) !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
-      .photo-scroll-hint { display: none; }
+      .photo-scroll-hint { display: none !important; }
       .photo-counter { bottom: 14px; right: 16px; font-size: 10px; }
+
+      /* ── BRAND: snap frames ── */
+      .brand-frame { scroll-snap-align: start; scroll-snap-stop: always; }
 
       /* ── ILLUSTRATION ── */
       .illus-spotlight-wrap { grid-template-columns: 1fr 120px; }
       .illus-thumb { width: 120px; height: 90px; }
       .fig-illus-bottom { grid-template-columns: 1fr; }
       .fig-illus-titlerow { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .illus-spotlight-inner,
+      .illus-spotlight-inner-b { background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
 
       /* ── 3D RENDERING ── */
       .fig-3d-top { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -1407,15 +1432,18 @@
       .wname { font-size: clamp(24px, 10vw, 42px); }
 
       /* ── GRAPHIC ── */
-      .masonry-grid { grid-template-columns: repeat(2, 1fr); }
-      .fig-graphic-list { columns: 1; }
+      .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
+      .fig-graphic-list { columns: 2; column-gap: 10px; font-size: 9px; line-height: 1.65; }
+      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+      .mitem { aspect-ratio: 1 / 1; }
+      .mitem.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
       .fig-h { font-size: clamp(36px, 11vw, 64px); }
 
       /* ── BRAND ── */
       .brand-header { padding: 64px 18px 40px; }
       .brand-text-col { padding: 48px 18px 24px; }
-      .brand-strip { height: 70vw; }
-      .brand-frame { height: 70vw; }
+      .brand-strip { height: 80vw; }
+      .brand-frame { height: 80vw; min-width: 92vw; width: 92vw; }
 
       /* ── ILLUSTRATION ── */
       .illus-spotlight-wrap { grid-template-columns: 1fr; grid-template-rows: 1fr 100px; }
@@ -1780,7 +1808,7 @@
       <div>
         <div class="do-block-label">il team</div>
         <div class="do-block-value">
-          Lukes, Perry, Bea,<br>Gargio, Juan, Samu
+          Lukes<br>Perry<br>Bea<br>Gargio<br>Juan<br>Samu
         </div>
       </div>
 
@@ -1966,7 +1994,7 @@
     <div class="brand-snap" id="brand-snap-header" data-theme="light">
       <div class="brand-header">
         <div class="brand-header-left">
-          <div class="svc-tag">costruiamo marchi con un perché</div>
+          <div class="svc-tag">building brands with purpose</div>
           <div class="svc-h" style="font-size:clamp(44px,7.5vw,112px);line-height:0.9;letter-spacing:-0.03em;margin-top:6px;">BRAND<br>IDENTITY</div>
         </div>
         <div class="brand-header-right">
@@ -1998,10 +2026,21 @@
       </div>
       <div class="brand-strip" id="brand-strip-0">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 05</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 05</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers17.webp" style="background-image:none"></div><div class="brand-frame-num">06 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers18.webp" style="background-image:none"></div><div class="brand-frame-num">07 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers19.webp" style="background-image:none"></div><div class="brand-frame-num">08 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers20.webp" style="background-image:none"></div><div class="brand-frame-num">09 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers21.webp" style="background-image:none"></div><div class="brand-frame-num">10 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers22.webp" style="background-image:none"></div><div class="brand-frame-num">11 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers23.webp" style="background-image:none"></div><div class="brand-frame-num">12 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers24.webp" style="background-image:none"></div><div class="brand-frame-num">13 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers25.webp" style="background-image:none"></div><div class="brand-frame-num">14 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers26.webp" style="background-image:none"></div><div class="brand-frame-num">15 / 15</div></div>
       </div>
     </div>
 
@@ -2047,7 +2086,10 @@
       </div>
     </div>
 
-    <div class="brand-footer-line"><span>more soon —</span></div>
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
 
   </section>
 
@@ -2229,6 +2271,11 @@
     <!-- photo counter -->
     <div class="photo-counter" id="photoCounter">01 / 04</div>
 
+    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:0;left:0;right:0;z-index:8;background:rgba(0,0,0,0.45);padding:22px 24px;">
+      <span class="cta-tile-coming" style="color:rgba(255,255,255,0.55);">coming soon..</span>
+      <span class="cta-tile-cta" style="color:#fff;">your project!</span>
+    </div>
+
   </section>
 
   <!-- ══════ ILLUSTRATION ══════
@@ -2324,6 +2371,11 @@
 
     <!-- services list -->
     <div class="illus-overlay-list svc-ul"></div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
 
   </section>
 
@@ -2491,6 +2543,12 @@
 
       </div>
     </div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
+
   </section>
 
   <style>
@@ -3099,6 +3157,48 @@
     .brand-strip.scrolled .brand-strip-hint { opacity: 0; }
 
     /* footer line */
+    /* ── CTA TILE — "your project!" at end of every section ── */
+    .cta-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 48px 24px;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+    .cta-tile-coming {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: clamp(10px, 0.9vw, 12px);
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      opacity: 0.5;
+    }
+    .cta-tile-cta {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: clamp(20px, 2.5vw, 32px);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      transition: letter-spacing 0.3s ease;
+    }
+    .cta-tile:hover .cta-tile-cta { letter-spacing: 0.04em; }
+
+    /* on blue bg sections */
+    .blu-bg .cta-tile { background: rgba(255,255,255,0.07); }
+    .blu-bg .cta-tile:hover { background: rgba(255,255,255,0.14); }
+    .blu-bg .cta-tile-coming { color: rgba(255,255,255,0.6); }
+    .blu-bg .cta-tile-cta { color: var(--white); }
+
+    /* on light bg sections */
+    .off-bg .cta-tile, .brand-scroll-bg .cta-tile { background: rgba(20,0,255,0.04); }
+    .off-bg .cta-tile:hover, .brand-scroll-bg .cta-tile:hover { background: #ebebff; }
+    .off-bg .cta-tile-coming, .brand-scroll-bg .cta-tile-coming { color: rgba(0,0,200,0.4); }
+    .off-bg .cta-tile-cta, .brand-scroll-bg .cta-tile-cta { color: var(--blu); }
+
     .brand-footer-line {
       padding: 48px 60px;
       font-family: 'Poppins', sans-serif;
@@ -3354,6 +3454,50 @@
     .fig-3d-list { margin-top: 4px; }
     .fig-3d-tag { text-align: right; margin-top: 4px; }
     .fig-3d-rendering { margin-top: -8px; }
+
+  /* ═══════════════════════════════════════════════════
+     LATE MOBILE OVERRIDES — must come after all desktop
+     rules to win on equal specificity
+  ═══════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* ── WHAT WE DO: bigger tap targets ── */
+    .wname { font-size: clamp(36px, 11vw, 64px) !important; }
+    .witem { min-height: 56px !important; padding: 6px 0 !important; }
+
+    /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
+    .fig-top.fig-graphic-top {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px;
+    }
+    .fig-graphic-list {
+      columns: 2 !important;
+      column-gap: 12px !important;
+      font-size: 10px !important;
+      line-height: 1.7 !important;
+    }
+    .masonry-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 5px !important;
+      padding-bottom: 40px !important;
+    }
+    .mitem {
+      aspect-ratio: 1 / 1 !important;
+    }
+    .mitem.big {
+      grid-column: span 2 !important;
+      grid-row: span 2 !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    /* ── PHOTOGRAPHY: dark text list ── */
+    #photo .photo-overlay-list,
+    #photo .photo-overlay-list * {
+      color: #1a1208 !important;
+    }
+  }
   </style>
 
 </div><!-- /app -->
@@ -3775,20 +3919,23 @@
 
           // ── Progress bar sync ──
           strip.addEventListener('scroll', function() {
-            const max = strip.scrollHeight - strip.clientHeight;
-            const progress = max > 0 ? strip.scrollTop / max : 0;
+            const isMobile = window.innerWidth < 768;
+            const scrollPos  = isMobile ? strip.scrollLeft : strip.scrollTop;
+            const scrollSize = isMobile ? (strip.scrollWidth - strip.clientWidth) : (strip.scrollHeight - strip.clientHeight);
+            const progress = scrollSize > 0 ? scrollPos / scrollSize : 0;
             if (bar)   bar.style.width = (progress * 100) + '%';
             if (label) {
               const fi = Math.round(progress * (total - 1)) + 1;
               label.textContent = String(fi).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
             }
             // hide hint after first scroll
-            if (hint && strip.scrollTop > 10) strip.classList.add('scrolled');
+            if (hint && scrollPos > 10) strip.classList.add('scrolled');
           }, { passive: true });
 
           // ── Per-frame zoom on click ──
           frames.forEach(function(frame) {
             const img = frame.querySelector('.brand-frame-img');
+            const isTouchDevice = ('ontouchstart' in window);
 
             function updateZoom(clientX, clientY) {
               const r  = frame.getBoundingClientRect();
@@ -3797,35 +3944,59 @@
               img.style.backgroundPosition = px + '% ' + py + '%';
             }
 
-            frame.addEventListener('click', function(e) {
-              e.stopPropagation();
-              const wasZoomed = frame.classList.contains('zoomed');
-              // unzoom all frames in this strip first
-              frames.forEach(function(f) {
-                f.classList.remove('zoomed');
-                f.querySelector('.brand-frame-img').style.backgroundPosition = 'center';
+            if (isTouchDevice) {
+              // ── MOBILE: tap opens fullscreen overlay ──
+              frame.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const bg = img.getAttribute('data-bg') || img.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+                if (!bg) return;
+                var overlay = document.getElementById('mobileZoomOverlay');
+                if (!overlay) {
+                  overlay = document.createElement('div');
+                  overlay.id = 'mobileZoomOverlay';
+                  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+                  var zImg = document.createElement('div');
+                  zImg.id  = 'mobileZoomImg';
+                  zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
+                  overlay.appendChild(zImg);
+                  overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+                  document.body.appendChild(overlay);
+                }
+                var src = img.style.backgroundImage ? img.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '') : bg;
+                document.getElementById('mobileZoomImg').style.backgroundImage = "url('" + src + "')";
+                overlay.style.display = 'flex';
               });
-              if (!wasZoomed) {
-                frame.classList.add('zoomed');
+            } else {
+              // ── DESKTOP: click to zoom + mouse-pan ──
+              frame.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const wasZoomed = frame.classList.contains('zoomed');
+                frames.forEach(function(f) {
+                  f.classList.remove('zoomed');
+                  f.querySelector('.brand-frame-img').style.backgroundPosition = 'center';
+                });
+                if (!wasZoomed) {
+                  frame.classList.add('zoomed');
+                  updateZoom(e.clientX, e.clientY);
+                  if (cursor) cursor.classList.add('hidden');
+                } else {
+                  if (cursor) cursor.classList.remove('hidden');
+                }
+              });
+
+              frame.addEventListener('mousemove', function(e) {
+                if (!frame.classList.contains('zoomed')) return;
                 updateZoom(e.clientX, e.clientY);
-                if (cursor) cursor.classList.add('hidden');
-              } else {
-                if (cursor) cursor.classList.remove('hidden');
-              }
-            });
+              });
 
-            frame.addEventListener('mousemove', function(e) {
-              if (!frame.classList.contains('zoomed')) return;
-              updateZoom(e.clientX, e.clientY);
-            });
-
-            frame.addEventListener('mouseleave', function() {
-              if (frame.classList.contains('zoomed')) {
-                frame.classList.remove('zoomed');
-                img.style.backgroundPosition = 'center';
-                if (cursor) cursor.classList.remove('hidden');
-              }
-            });
+              frame.addEventListener('mouseleave', function() {
+                if (frame.classList.contains('zoomed')) {
+                  frame.classList.remove('zoomed');
+                  img.style.backgroundPosition = 'center';
+                  if (cursor) cursor.classList.remove('hidden');
+                }
+              });
+            }
           });
 
           // ── Snickers strip: force cursor to on-light (blue star) ──
@@ -3888,6 +4059,50 @@
 
         updateBrandState();
       })();
+
+      // ── Mobile: manual horizontal touch scroll for brand strips ──────────
+      if (window.innerWidth < 768 || ('ontouchstart' in window)) {
+        document.querySelectorAll('.brand-strip').forEach(function(strip) {
+          var touchStartX = 0, touchStartY = 0, scrollStart = 0, axis = null;
+          var lastX = 0, lastTime = 0, velocity = 0;
+          strip.addEventListener('touchstart', function(e) {
+            touchStartX  = e.touches[0].clientX;
+            touchStartY  = e.touches[0].clientY;
+            scrollStart  = strip.scrollLeft;
+            lastX = touchStartX;
+            lastTime = Date.now();
+            velocity = 0;
+            axis = null;
+          }, { passive: true });
+          strip.addEventListener('touchmove', function(e) {
+            var dx = touchStartX - e.touches[0].clientX;
+            var dy = Math.abs(touchStartY - e.touches[0].clientY);
+            if (!axis) axis = Math.abs(dx) > dy * 0.5 ? 'h' : 'v';
+            if (axis === 'h') {
+              e.preventDefault();
+              strip.scrollLeft = scrollStart + dx;
+              var now = Date.now();
+              velocity = (lastX - e.touches[0].clientX) / Math.max(1, now - lastTime);
+              lastX = e.touches[0].clientX;
+              lastTime = now;
+            }
+          }, { passive: false });
+          strip.addEventListener('touchend', function() {
+            if (axis !== 'h') return;
+            var frameW = strip.querySelector('.brand-frame') ? strip.querySelector('.brand-frame').offsetWidth : strip.clientWidth;
+            // if flicked fast enough, advance/retreat one frame
+            var target;
+            if (Math.abs(velocity) > 0.3) {
+              var cur = Math.round(strip.scrollLeft / frameW);
+              target = (velocity > 0 ? cur + 1 : cur - 1) * frameW;
+            } else {
+              target = Math.round(strip.scrollLeft / frameW) * frameW;
+            }
+            target = Math.max(0, Math.min(target, strip.scrollWidth - frameW));
+            strip.scrollTo({ left: target, behavior: 'smooth' });
+          }, { passive: true });
+        });
+      }
 
       // ── PHOTO STRIP — drag scroll + click → modal ───────────────────────────
       (function() {
@@ -4129,27 +4344,46 @@
           if (ib) ib.style.backgroundPosition = px + '% ' + py + '%';
         }
         const illusCursor = document.getElementById('cursor');
-        main.addEventListener('click', (e) => {
-          main.classList.toggle('zoomed');
-          if (main.classList.contains('zoomed')) {
+        const isTouchDevice = ('ontouchstart' in window);
+
+        if (isTouchDevice) {
+          // MOBILE: tap opens fullscreen overlay
+          main.addEventListener('click', (e) => {
+            var overlay = document.getElementById('mobileZoomOverlay');
+            if (!overlay) {
+              overlay = document.createElement('div');
+              overlay.id = 'mobileZoomOverlay';
+              overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+              var zImg = document.createElement('div');
+              zImg.id  = 'mobileZoomImg';
+              zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
+              overlay.appendChild(zImg);
+              overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+              document.body.appendChild(overlay);
+            }
+            const src = inner.style.backgroundImage || (document.getElementById('illusMainInnerB') && document.getElementById('illusMainInnerB').style.opacity === '1' ? document.getElementById('illusMainInnerB').style.backgroundImage : inner.style.backgroundImage);
+            document.getElementById('mobileZoomImg').style.backgroundImage = src;
+            overlay.style.display = 'flex';
+          });
+        } else {
+          // DESKTOP: click to zoom + mouse-pan
+          main.addEventListener('click', (e) => {
+            main.classList.toggle('zoomed');
+            if (main.classList.contains('zoomed')) {
+              updateZoomPan(e.clientX, e.clientY);
+              if (illusCursor) illusCursor.classList.add('hidden');
+            } else {
+              inner.style.backgroundPosition = 'center';
+              const ib = document.getElementById('illusMainInnerB');
+              if (ib) ib.style.backgroundPosition = 'center';
+              if (illusCursor) illusCursor.classList.remove('hidden');
+            }
+          });
+          document.addEventListener('mousemove', (e) => {
+            if (!main.classList.contains('zoomed')) return;
             updateZoomPan(e.clientX, e.clientY);
-            if (illusCursor) illusCursor.classList.add('hidden');
-          } else {
-            inner.style.backgroundPosition = 'center';
-            const ib = document.getElementById('illusMainInnerB');
-            if (ib) ib.style.backgroundPosition = 'center';
-            if (illusCursor) illusCursor.classList.remove('hidden');
-          }
-        });
-        document.addEventListener('mousemove', (e) => {
-          if (!main.classList.contains('zoomed')) return;
-          updateZoomPan(e.clientX, e.clientY);
-        });
-        main.addEventListener('touchmove', (e) => {
-          if (!main.classList.contains('zoomed')) return;
-          e.preventDefault();
-          updateZoomPan(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: false });
+          });
+        }
 
         // keyboard
         document.addEventListener('keydown', (e) => {
