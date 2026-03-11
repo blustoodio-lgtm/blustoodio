@@ -1377,7 +1377,7 @@
         font-size: 10px;
         line-height: 1.7;
         padding: 8px 20px 10px;
-        background: rgba(255,255,255,0.92);
+        background: none;
       }
       #photo .photo-overlay-list,
       #photo .photo-overlay-list * { color: rgba(10, 8, 5, 1) !important; }
@@ -1808,7 +1808,7 @@
       <div>
         <div class="do-block-label">il team</div>
         <div class="do-block-value">
-          Lukes, Perry, Bea,<br>Gargio, Juan, Samu
+          Lukes<br>Perry<br>Bea<br>Gargio<br>Juan<br>Samu
         </div>
       </div>
 
@@ -2086,7 +2086,10 @@
       </div>
     </div>
 
-    <div class="brand-footer-line"><span>more soon —</span></div>
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
 
   </section>
 
@@ -2268,6 +2271,11 @@
     <!-- photo counter -->
     <div class="photo-counter" id="photoCounter">01 / 04</div>
 
+    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:0;left:0;right:0;z-index:8;background:rgba(0,0,0,0.45);padding:22px 24px;">
+      <span class="cta-tile-coming" style="color:rgba(255,255,255,0.55);">coming soon..</span>
+      <span class="cta-tile-cta" style="color:#fff;">your project!</span>
+    </div>
+
   </section>
 
   <!-- ══════ ILLUSTRATION ══════
@@ -2363,6 +2371,11 @@
 
     <!-- services list -->
     <div class="illus-overlay-list svc-ul"></div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
 
   </section>
 
@@ -2530,6 +2543,12 @@
 
       </div>
     </div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
+
   </section>
 
   <style>
@@ -3138,6 +3157,48 @@
     .brand-strip.scrolled .brand-strip-hint { opacity: 0; }
 
     /* footer line */
+    /* ── CTA TILE — "your project!" at end of every section ── */
+    .cta-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 48px 24px;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+    .cta-tile-coming {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: clamp(10px, 0.9vw, 12px);
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      opacity: 0.5;
+    }
+    .cta-tile-cta {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: clamp(20px, 2.5vw, 32px);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      transition: letter-spacing 0.3s ease;
+    }
+    .cta-tile:hover .cta-tile-cta { letter-spacing: 0.04em; }
+
+    /* on blue bg sections */
+    .blu-bg .cta-tile { background: rgba(255,255,255,0.07); }
+    .blu-bg .cta-tile:hover { background: rgba(255,255,255,0.14); }
+    .blu-bg .cta-tile-coming { color: rgba(255,255,255,0.6); }
+    .blu-bg .cta-tile-cta { color: var(--white); }
+
+    /* on light bg sections */
+    .off-bg .cta-tile, .brand-scroll-bg .cta-tile { background: rgba(20,0,255,0.04); }
+    .off-bg .cta-tile:hover, .brand-scroll-bg .cta-tile:hover { background: #ebebff; }
+    .off-bg .cta-tile-coming, .brand-scroll-bg .cta-tile-coming { color: rgba(0,0,200,0.4); }
+    .off-bg .cta-tile-cta, .brand-scroll-bg .cta-tile-cta { color: var(--blu); }
+
     .brand-footer-line {
       padding: 48px 60px;
       font-family: 'Poppins', sans-serif;
@@ -3400,6 +3461,10 @@
   ═══════════════════════════════════════════════════ */
   @media (max-width: 768px) {
 
+    /* ── WHAT WE DO: bigger tap targets ── */
+    .wname { font-size: clamp(36px, 11vw, 64px) !important; }
+    .witem { min-height: 56px !important; padding: 6px 0 !important; }
+
     /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
     .fig-top.fig-graphic-top {
       display: flex !important;
@@ -3416,6 +3481,7 @@
       display: grid !important;
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 5px !important;
+      padding-bottom: 40px !important;
     }
     .mitem {
       aspect-ratio: 1 / 1 !important;
