@@ -1329,9 +1329,9 @@
       .about-big { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── GRAPHIC DESIGN ── */
-      .fig-wrap { padding: 64px 20px 40px; gap: 20px; }
-      .fig-graphic-top { grid-template-columns: 1fr; gap: 12px; }
-      .fig-graphic-list { columns: 2; column-gap: 16px; }
+      .fig-wrap { padding: 64px 20px 40px; gap: 16px; }
+      .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
+      .fig-graphic-list { display: none; }
       .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
       .mitem.big { grid-column: span 2; grid-row: span 2; }
 
@@ -1344,23 +1344,28 @@
         min-height: calc(var(--vh, 1vh) * 100);
       }
       .brand-text-col { padding: 60px 24px 28px; }
-      .brand-strip { height: 56vw; scroll-snap-type: none; }
-      .brand-frame { height: 56vw; }
+      .brand-strip {
+        height: 72vw;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .brand-frame {
+        height: 72vw;
+        min-width: 88vw;
+        width: 88vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
       .brand-strip-hint { display: none; }
       .brand-dot-nav { display: none; }
       .brand-proj-title { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── PHOTOGRAPHY ── */
-      .photo-overlay-list {
-        top: auto;
-        bottom: 108px;
-        left: 20px;
-        right: 20px;
-        grid-template-columns: 1fr 1fr;
-        gap: 0 12px;
-        font-size: 10px;
-        line-height: 1.7;
-      }
+      .photo-overlay-list { display: none; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none; }
@@ -1371,6 +1376,8 @@
       .illus-thumb { width: 120px; height: 90px; }
       .fig-illus-bottom { grid-template-columns: 1fr; }
       .fig-illus-titlerow { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .illus-spotlight-inner,
+      .illus-spotlight-inner-b { background-size: contain !important; background-repeat: no-repeat; background-position: center !important; }
 
       /* ── 3D RENDERING ── */
       .fig-3d-top { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -1408,14 +1415,13 @@
 
       /* ── GRAPHIC ── */
       .masonry-grid { grid-template-columns: repeat(2, 1fr); }
-      .fig-graphic-list { columns: 1; }
       .fig-h { font-size: clamp(36px, 11vw, 64px); }
 
       /* ── BRAND ── */
       .brand-header { padding: 64px 18px 40px; }
       .brand-text-col { padding: 48px 18px 24px; }
-      .brand-strip { height: 70vw; }
-      .brand-frame { height: 70vw; }
+      .brand-strip { height: 80vw; }
+      .brand-frame { height: 80vw; min-width: 92vw; width: 92vw; }
 
       /* ── ILLUSTRATION ── */
       .illus-spotlight-wrap { grid-template-columns: 1fr; grid-template-rows: 1fr 100px; }
@@ -1966,7 +1972,7 @@
     <div class="brand-snap" id="brand-snap-header" data-theme="light">
       <div class="brand-header">
         <div class="brand-header-left">
-          <div class="svc-tag">costruiamo marchi con un perché</div>
+          <div class="svc-tag">building brands with purpose</div>
           <div class="svc-h" style="font-size:clamp(44px,7.5vw,112px);line-height:0.9;letter-spacing:-0.03em;margin-top:6px;">BRAND<br>IDENTITY</div>
         </div>
         <div class="brand-header-right">
@@ -1998,6 +2004,7 @@
       </div>
       <div class="brand-strip" id="brand-strip-0">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 05</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 05</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 05</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 05</div></div>
@@ -3775,15 +3782,17 @@
 
           // ── Progress bar sync ──
           strip.addEventListener('scroll', function() {
-            const max = strip.scrollHeight - strip.clientHeight;
-            const progress = max > 0 ? strip.scrollTop / max : 0;
+            const isMobile = window.innerWidth < 768;
+            const scrollPos  = isMobile ? strip.scrollLeft : strip.scrollTop;
+            const scrollSize = isMobile ? (strip.scrollWidth - strip.clientWidth) : (strip.scrollHeight - strip.clientHeight);
+            const progress = scrollSize > 0 ? scrollPos / scrollSize : 0;
             if (bar)   bar.style.width = (progress * 100) + '%';
             if (label) {
               const fi = Math.round(progress * (total - 1)) + 1;
               label.textContent = String(fi).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
             }
             // hide hint after first scroll
-            if (hint && strip.scrollTop > 10) strip.classList.add('scrolled');
+            if (hint && scrollPos > 10) strip.classList.add('scrolled');
           }, { passive: true });
 
           // ── Per-frame zoom on click ──
