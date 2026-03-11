@@ -1366,11 +1366,24 @@
       .brand-proj-title { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── PHOTOGRAPHY ── */
-      .photo-overlay-list { display: none !important; }
+      .photo-overlay-list {
+        display: grid !important;
+        top: 56px;
+        bottom: auto;
+        left: 20px;
+        right: 20px;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 12px;
+        font-size: 10px;
+        line-height: 1.7;
+      }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
-      .photo-scroll-hint { display: none; }
+      .photo-scroll-hint { display: none !important; }
       .photo-counter { bottom: 14px; right: 16px; font-size: 10px; }
+
+      /* ── BRAND: snap frames ── */
+      .brand-frame { scroll-snap-align: start; scroll-snap-stop: always; }
 
       /* ── ILLUSTRATION ── */
       .illus-spotlight-wrap { grid-template-columns: 1fr 120px; }
@@ -3943,6 +3956,13 @@
               strip.scrollLeft = scrollStart + dx;
             }
           }, { passive: false });
+          strip.addEventListener('touchend', function() {
+            if (axis !== 'h') return;
+            // snap to nearest frame
+            var frameW = strip.querySelector('.brand-frame') ? strip.querySelector('.brand-frame').offsetWidth : strip.clientWidth;
+            var nearest = Math.round(strip.scrollLeft / frameW) * frameW;
+            strip.scrollTo({ left: nearest, behavior: 'smooth' });
+          }, { passive: true });
         });
       }
 
