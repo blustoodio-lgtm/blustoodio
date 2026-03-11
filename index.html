@@ -1329,12 +1329,12 @@
       .about-big { font-size: clamp(28px, 7vw, 48px); }
 
       /* ── GRAPHIC DESIGN ── */
-      .fig-wrap { padding: 64px 20px 40px; gap: 16px; height: auto; }
-      .fig-graphic-top { grid-template-columns: 1fr; gap: 8px; }
-      .fig-graphic-list { columns: 1; font-size: 12px; line-height: 1.8; }
-      .masonry-grid { grid-template-columns: 1fr; gap: 6px; }
-      .mitem { aspect-ratio: 4 / 3; }
-      .mitem.big { grid-column: span 1; grid-row: span 1; aspect-ratio: 16 / 9; }
+      .fig-wrap { padding: 64px 20px 40px; gap: 12px; height: auto; }
+      .fig-graphic-top { grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+      .fig-graphic-list { columns: 2; column-gap: 10px; font-size: 9px; line-height: 1.6; }
+      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 5px; }
+      .mitem { aspect-ratio: 3 / 2; }
+      .mitem.big { grid-column: span 2; grid-row: span 1; aspect-ratio: 16 / 7; }
 
       /* ── BRAND IDENTITY ── */
       .brand-header { grid-template-columns: 1fr; gap: 16px; padding: 72px 24px 48px; height: auto; min-height: calc(var(--vh, 1vh) * 100); }
@@ -1370,15 +1370,19 @@
         display: grid !important;
         top: 56px;
         bottom: auto;
-        left: 20px;
-        right: 20px;
+        left: 0;
+        right: 0;
         grid-template-columns: 1fr 1fr;
-        gap: 0 12px;
+        gap: 0 8px;
         font-size: 10px;
         line-height: 1.7;
+        padding: 8px 20px 10px;
+        background: rgba(255,255,255,0.72);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
       #photo .photo-overlay-list,
-      #photo .photo-overlay-list * { color: rgba(30, 20, 10, 0.82) !important; }
+      #photo .photo-overlay-list * { color: rgba(20, 14, 6, 0.95) !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none !important; }
@@ -1430,10 +1434,11 @@
       .wname { font-size: clamp(24px, 10vw, 42px); }
 
       /* ── GRAPHIC ── */
-      .masonry-grid { grid-template-columns: 1fr; }
-      .mitem { aspect-ratio: 4 / 3; }
-      .mitem.big { grid-column: span 1; grid-row: span 1; aspect-ratio: 16 / 9; }
-      .fig-graphic-list { display: block; columns: 1; font-size: 11px; }
+      .fig-graphic-top { grid-template-columns: auto 1fr; gap: 12px; }
+      .fig-graphic-list { columns: 2; column-gap: 8px; font-size: 8.5px; line-height: 1.6; }
+      .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+      .mitem { aspect-ratio: 3 / 2; }
+      .mitem.big { grid-column: span 2; grid-row: span 1; aspect-ratio: 16 / 7; }
       .fig-h { font-size: clamp(36px, 11vw, 64px); }
 
       /* ── BRAND ── */
