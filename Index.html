@@ -3586,7 +3586,7 @@
   @media (max-width: 768px) {
 
     /* ── WHAT WE DO: bigger tap targets ── */
-    .wname { font-size: clamp(44px, 14vw, 76px) !important; }
+    .wname { font-size: clamp(52px, 16vw, 86px) !important; }
     .witem { min-height: 80px !important; padding: 12px 0 !important; }
 
     /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
@@ -4468,7 +4468,6 @@
       // ── POSTER SLIDER ──────────────────────────────────────────────────
       (function() {
         const overlay   = document.getElementById('posterOverlay');
-        const closeBtn  = document.getElementById('posterClose');
         const wrapper   = document.getElementById('posterWrapper');
         const titleEl   = document.getElementById('posterTitle');
         const metaEl    = document.getElementById('posterMeta');
@@ -4476,8 +4475,10 @@
         const descEl    = document.getElementById('posterDesc');
         let ps = null;
 
+        const closeBtn = document.getElementById('posterClose');
         function closePoster() {
           overlay.classList.remove('open-visible');
+          if (closeBtn) closeBtn.style.display = 'none';
           setTimeout(() => {
             overlay.classList.remove('open');
             if (ps) { ps.destroy(true, true); ps = null; }
@@ -4535,6 +4536,7 @@
           descEl.textContent  = desc;
           if (hint) hint.classList.remove('hidden');
           overlay.classList.add('open');
+          if (closeBtn) closeBtn.style.display = 'block';
           overlay.offsetHeight;
           overlay.classList.add('open-visible');
 
@@ -4944,8 +4946,8 @@
 </script>
 
 <!-- ── GRAPHIC DESIGN POSTER SLIDER ── -->
+<button id="posterClose">✕</button>
 <div id="posterOverlay">
-  <button id="posterClose">✕</button>
   <div id="posterInfo">
     <div id="posterTitle"></div>
     <div id="posterMeta"></div>
@@ -4969,7 +4971,8 @@
   }
   #posterOverlay.open { display:flex; }
   #posterOverlay.open-visible { opacity:1; }
-  #posterClose { position:fixed; top:24px; right:28px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:22px; cursor:pointer; z-index:9999; padding:16px; transition:color 0.2s; }
+  #posterClose { display:none; position:fixed; top:24px; right:28px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:22px; cursor:pointer; z-index:10000; padding:16px; transition:color 0.2s; touch-action:manipulation; }
+  #posterOverlay.open ~ #posterClose, #posterClose.pclose-visible { display:block; }
   #posterClose:hover { color:#fff; }
   #posterInfo { position:fixed; top:28px; left:36px; display:flex; align-items:baseline; gap:14px; z-index:10; }
   #posterTitle { font-family:'Poppins',sans-serif; font-weight:900; font-size:clamp(13px,1.1vw,16px); color:#fff; letter-spacing:-0.01em; text-transform:uppercase; }
@@ -5048,9 +5051,6 @@
     display: block; pointer-events: none;
     user-select: none; -webkit-user-drag: none;
     object-fit: contain;
-  }
-  /* pan animation — subtle translate on every opened project */
-  .pano-slide img {
     animation: panSlide 5s ease-in-out infinite alternate;
   }
   @keyframes panSlide {
@@ -5084,7 +5084,7 @@
   }
   #panoramaClose:hover { color: #fff; }
   @media (max-width: 768px) {
-    .pano-slide { height: 60vh; }
+    .pano-slide { height: 55vh; max-width: 95vw; }
     #panoramaTrack { padding: 0 calc(50vw - 30vh); gap: 16px; }
     #panoramaInfo { top: 16px; left: 20px; }
   }
