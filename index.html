@@ -243,8 +243,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      overflow: clip;
-      width: max-content;
+      overflow: hidden;
       max-height: 0;
       opacity: 0;
       transition: max-height 0.35s cubic-bezier(0.2,0.9,0.2,1),
@@ -1151,7 +1150,6 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-top: 24px;
-      padding-bottom: 64px;
     }
 
     .ritem {
@@ -1370,19 +1368,19 @@
       /* ── PHOTOGRAPHY ── */
       .photo-overlay-list {
         display: grid !important;
-        top: auto !important;
-        bottom: 118px !important;
-        left: 20px !important;
-        right: 20px !important;
+        top: 56px;
+        bottom: auto;
+        left: 0;
+        right: 0;
         grid-template-columns: 1fr 1fr;
         gap: 0 8px;
         font-size: 10px;
         line-height: 1.7;
-        padding: 0;
+        padding: 8px 20px 10px;
         background: none;
       }
       #photo .photo-overlay-list,
-      #photo .photo-overlay-list * { color: rgba(255,255,255,0.85) !important; }
+      #photo .photo-overlay-list * { color: rgba(10, 8, 5, 1) !important; }
       .photo-overlay-title .fig-h { font-size: clamp(32px, 10vw, 56px); }
       .photo-overlay-title { bottom: 14px; left: 20px; }
       .photo-scroll-hint { display: none !important; }
@@ -1615,6 +1613,7 @@
         justify-content: center;
         transition: opacity 0.3s ease;
         cursor: pointer;
+        padding: 10px 0;
       }
 
       .witem.two-lines {
@@ -1624,7 +1623,7 @@
       .wname {
         font-family: 'Poppins', sans-serif;
         font-weight: 900;
-        font-size: clamp(32px, 5.5vw, 76px);
+        font-size: clamp(36px, 6.2vw, 86px);
         color: var(--blu);
         text-transform: uppercase;
         line-height: 1.0;
@@ -1795,7 +1794,7 @@
       <div>
         <div class="do-block-label">email</div>
         <div class="do-block-value">
-          <a href="mailto:blu.stoodio@gmail.com">blu.stoodio@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#1a78766f34696e75757e73755a7d777b737634797577"><span class="__cf_email__" data-cfemail="593b352c772a2d36363d3036193e34383035773a3634">[email&#160;protected]</span></a>
         </div>
       </div>
 
@@ -1809,10 +1808,8 @@
 
       <div>
         <div class="do-block-label">il team</div>
-        <div class="do-block-value" style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;">
-          <span>Lukes</span><span>Gargio</span>
-          <span>Perry</span><span>Juan</span>
-          <span>Bea</span><span>Samu</span>
+        <div class="do-block-value">
+          Luca<br>Davide<br>Beatrice<br>Mattia<br>Juan<br>Matilde
         </div>
       </div>
 
@@ -1847,7 +1844,7 @@
       <div class="fig-top fig-graphic-top fig-anim-header">
         <div class="fig-title-block fig-anim-item" style="--i:0">
           <div class="svc-h fig-h">GRAPHIC<br>DE*SIGN</div>
-          <div class="svc-tag fig-tag">visivi che parlano chiaro</div>
+          <div class="svc-tag fig-tag">visuals that speak clearly</div>
         </div>
         <div class="svc-ul fig-list fig-graphic-list fig-anim-item" style="--i:1">
           * poster<br>* locandine<br>* flyer<br>* brochure<br>
@@ -2021,7 +2018,7 @@
       <div class="brand-text-col">
         <div class="brand-sticky-inner">
           <div class="brand-proj-num">(01)</div>
-          <div class="brand-proj-title" style="color:#e8b96a;">Snickers<br>Luxury Rebrand</div>
+          <div class="brand-proj-title" style="color:#fff;">Snickers<br>Luxury Rebrand</div>
           <div class="brand-proj-meta">Brand Identity · Packaging · Photography · 2024</div>
           <div class="brand-proj-desc">Riposizionamento completo di un marchio iconico nel settore della confetteria di lusso. Nuovo sistema logo con medaglione e lockup ovale in quattro varianti cromatiche, packaging premium in blu navy, caramello e lampone, shooting still-life editoriale, identità social e campagna pubblicitaria outdoor.</div>
           <div class="brand-progress"><div class="brand-progress-bar"></div></div>
@@ -2030,8 +2027,8 @@
       </div>
       <div class="brand-strip" id="brand-strip-0">
         <div class="brand-strip-hint"><div class="brand-strip-hint-arrow"></div>scroll</div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 15</div></div>
-        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers7.webp" style="background-image:none"></div><div class="brand-frame-num">01 / 15</div></div>
+        <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers1.webp" style="background-image:none"></div><div class="brand-frame-num">02 / 15</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers3.webp" style="background-image:none"></div><div class="brand-frame-num">03 / 15</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers15.webp" style="background-image:none"></div><div class="brand-frame-num">04 / 15</div></div>
         <div class="brand-frame"><div class="brand-frame-img" data-bg="images/Snickers9.webp" style="background-image:none"></div><div class="brand-frame-num">05 / 15</div></div>
@@ -2053,7 +2050,7 @@
       <div class="brand-text-col">
         <div class="brand-sticky-inner">
           <div class="brand-proj-num">(02)</div>
-          <div class="brand-proj-title" style="color:#d4b870;">Pezzotti<br>Sempre in Piazza</div>
+          <div class="brand-proj-title" style="color:var(--blu);">Pezzotti<br>Sempre in Piazza</div>
           <div class="brand-proj-meta">Brand Identity · 2024</div>
           <div class="brand-proj-desc">Identità visiva completa per Pezzotti, storico banco ambulante lombardo dal 1947. Logo con iniziale calligrafica e disco in vinile integrato, palette navy e oro antico. Sistema applicato su biglietti da visita, segnaletica da mercato, sito web, materiali per fiere e comunicazione social.</div>
           <div class="brand-progress"><div class="brand-progress-bar"></div></div>
@@ -2074,7 +2071,7 @@
       <div class="brand-text-col">
         <div class="brand-sticky-inner">
           <div class="brand-proj-num">(03)</div>
-          <div class="brand-proj-title" style="color:#e8e8e8;">Shuttered<br>Film Campaign</div>
+          <div class="brand-proj-title" style="color:#fff;">Shuttered<br>Film Campaign</div>
           <div class="brand-proj-meta">Brand Identity · Poster Design · Digital · 2025</div>
           <div class="brand-proj-desc">Campagna visiva completa per Shuttered, thriller psicologico diretto da Viktor Halbrecht. Key art e design dei poster, mockup UI per la piattaforma Opera, advertising outdoor e asset social. Identità costruita attorno a vetri frantumati, volti distorti e il claim "Fino a dove ti spingeresti per la fama?"</div>
           <div class="brand-progress"><div class="brand-progress-bar"></div></div>
@@ -2090,11 +2087,9 @@
       </div>
     </div>
 
-    <div class="brand-snap" id="brand-snap-cta" data-theme="light" style="display:flex;align-items:center;justify-content:center;background:#f0f0ee;">
-      <div class="cta-tile" onclick="go('do')" style="width:100%;height:100%;">
-        <span class="cta-tile-coming">coming soon..</span>
-        <span class="cta-tile-cta" style="font-size:clamp(28px,5vw,72px);">your project!</span>
-      </div>
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
     </div>
 
   </section>
@@ -2251,18 +2246,6 @@
            data-img="images/Portrait2.webp">
         <img loading="lazy" src="images/Portrait2.webp" alt="Portrait Rider">
       </div>
-
-      <!-- CTA tile as last photo in strip -->
-      <div class="photo-strip-item photo-cta-item" onclick="go('do')" style="cursor:pointer;background:#1400FF;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:340px;width:340px;gap:8px;">
-        <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-transform:lowercase;">coming soon..</span>
-        <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:clamp(22px,3vw,36px);letter-spacing:-0.02em;color:#fff;text-transform:uppercase;">your project!</span>
-      </div>
-    </div>
-
-    <!-- services list — sits just above PHOTOGRAPHY title -->
-    <div class="photo-overlay-list svc-ul">
-      <div>* shooting prodotti<br>* shooting modell*<br>* fotografia per campagne<br>* ritratti professionali</div>
-      <div>* contenuti per social media<br>* fotografia corporate<br>* still life<br>* photo/video editing</div>
     </div>
 
     <!-- title overlaid bottom-left -->
@@ -2274,6 +2257,12 @@
       <div class="svc-h fig-h">*GRAPHY</div>
     </div>
 
+    <!-- services list overlaid bottom-right -->
+    <div class="photo-overlay-list svc-ul">
+      <div>* shooting prodotti<br>* shooting modell*<br>* fotografia per campagne<br>* ritratti professionali</div>
+      <div>* contenuti per social media<br>* fotografia corporate<br>* still life<br>* photo/video editing</div>
+    </div>
+
     <!-- scroll hint -->
     <div class="photo-scroll-hint" id="photoScrollHint">
       <span>trascina per esplorare</span>
@@ -2281,7 +2270,12 @@
     </div>
 
     <!-- photo counter -->
-    <div class="photo-counter" id="photoCounter">01 / 22</div>
+    <div class="photo-counter" id="photoCounter">01 / 04</div>
+
+    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:0;left:0;right:0;z-index:8;background:rgba(0,0,0,0.45);padding:22px 24px;">
+      <span class="cta-tile-coming" style="color:rgba(255,255,255,0.55);">coming soon..</span>
+      <span class="cta-tile-cta" style="color:#fff;">your project!</span>
+    </div>
 
   </section>
 
@@ -2363,12 +2357,6 @@
         <div class="illus-thumb" data-img="images/Char_max.webp" data-title="Iron Hollow — Max" data-desc="Scheda character design — Max, combattente con la spada.">
           <img loading="lazy" src="images/Char_max.webp" alt="Iron Hollow — Max">
         </div>
-
-        <!-- CTA thumb -->
-        <div class="illus-cta-thumb" onclick="go('do')" style="cursor:pointer;background:#0a00cc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:100%;aspect-ratio:1/1;flex-shrink:0;">
-          <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.55);text-transform:lowercase;">coming soon..</span>
-          <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:13px;letter-spacing:-0.01em;color:#fff;text-transform:uppercase;text-align:center;line-height:1.1;">your<br>project!</span>
-        </div>
       </div>
 
     </div>
@@ -2384,6 +2372,11 @@
 
     <!-- services list -->
     <div class="illus-overlay-list svc-ul"></div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
+    </div>
 
   </section>
 
@@ -2414,7 +2407,7 @@
           * mockup tridimensionali<br>* animazioni 3D base<br>
           * modellazione e stampa 3D
         </div>
-        <div class="svc-tag fig-tag fig-3d-tag">visualizza oltre la realtà</div>
+        <div class="svc-tag fig-tag fig-3d-tag">see beyond reality</div>
       </div>
       <div class="svc-h fig-h fig-3d-rendering">*RENDERING</div>
       <div class="render-masonry fig-grid">
@@ -2530,6 +2523,16 @@
         </div>
 
         <div class="ritem"
+             data-title="Maschera — The Wanderer"
+             data-meta="3D Rendering · Character · 2024"
+             data-desc="Personaggio misterioso con maschera di iuta sgualcita al posto della testa, che esplora ambienti abbandonati con una torcia. Texturing realistico, lighting da dungeon, atmosfera horror-survival."
+             data-img="images/Render Maschera1.webp"
+             data-gallery="images/Render Maschera1.webp|images/Render Maschera2.webp|images/Render Maschera3.webp">
+          <div class="ritem-img" style="background-image:url('images/Render Maschera1.webp'); background-position: center 20%;"></div>
+          <div class="ritem-cap"><span class="ritem-num">(12)*</span><span class="ritem-cap-title">Maschera — The Wanderer</span></div>
+        </div>
+
+        <div class="ritem"
              data-title="Orco — Desert Colossus"
              data-meta="3D Rendering · Creature Design · 2024"
              data-desc="Creatura massiccia teal e gialla, occhi dorati, collana ruggine, ambientata in un paesaggio desertico e arido. Modellazione organica con texture sculpted, rendering PBR ad alta definizione."
@@ -2539,16 +2542,12 @@
           <div class="ritem-cap"><span class="ritem-num">(13)*</span><span class="ritem-cap-title">Orco — Desert Colossus</span></div>
         </div>
 
-        <!-- CTA ritem -->
-        <div class="ritem ritem-no-modal" onclick="go('do')" style="cursor:pointer;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-          <div class="ritem-img" style="background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-            <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:0.12em;color:rgba(0,0,200,0.45);text-transform:lowercase;">coming soon..</span>
-            <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:clamp(16px,1.8vw,24px);letter-spacing:-0.02em;color:#1400FF;text-transform:uppercase;text-align:center;">your project!</span>
-          </div>
-          <div class="ritem-cap"><span class="ritem-num" style="color:rgba(0,0,200,0.3);">(14)*</span><span class="ritem-cap-title" style="color:#1400FF;">Your Project</span></div>
-        </div>
-
       </div>
+    </div>
+
+    <div class="cta-tile" onclick="go('do')">
+      <span class="cta-tile-coming">coming soon..</span>
+      <span class="cta-tile-cta">your project!</span>
     </div>
 
   </section>
@@ -2650,7 +2649,7 @@
       grid-auto-rows: auto;
       gap: 5px;
       margin-top: 8px;
-      margin-bottom: 120px;
+      margin-bottom: 48px;
     }
 
     .mitem {
@@ -2785,15 +2784,14 @@
     /* ── DO / CONTACTS PAGE ───────────────────────────── */
     #do {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      overflow-y: auto;
     }
     .do-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 36px 80px;
-      padding: 48px 48px 80px;
+      gap: 60px 80px;
+      padding: 60px 48px;
       max-width: 900px;
       width: 100%;
       align-items: start;
@@ -2804,7 +2802,7 @@
     .do-headline-big {
       font-family: 'Poppins', sans-serif;
       font-weight: 900;
-      font-size: clamp(48px, 7vw, 96px);
+      font-size: clamp(56px, 9vw, 120px);
       line-height: 0.88;
       letter-spacing: -0.03em;
       color: var(--blu);
@@ -2875,7 +2873,7 @@
       border-radius: 3px;
     }
     .fig-wrap {
-      padding: 24px 24px 200px;
+      padding: 24px 24px 72px;
       padding-top: 70px;
       display: flex;
       flex-direction: column;
@@ -3330,9 +3328,9 @@
       filter: brightness(0.82);
     }
 
-    /* force white on photo overlay list */
+    /* force white on photo overlay list — overrides on-off blue */
     #photo .photo-overlay-list,
-    #photo .photo-overlay-list * { color: rgba(255,255,255,0.75) !important; }
+    #photo .photo-overlay-list * { color: rgba(255,255,255,0.6) !important; }
 
     /* caption: top-center on hover */
     .photo-strip-item::after {
@@ -3381,18 +3379,17 @@
       margin-bottom: 2px;
     }
 
-    /* services list — sits just above PHOTOGRAPHY title */
+    /* services list bottom-right */
     .photo-overlay-list {
       position: absolute;
       bottom: 24px;
       right: 80px;
-      left: auto;
       z-index: 10;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0 32px;
       pointer-events: none;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.6);
       font-size: 11px;
     }
 
@@ -3450,7 +3447,7 @@
     /* ── 3D RENDERING ── */
     .fig-3d-top {
       display: grid;
-      grid-template-columns: auto auto 1fr;
+      grid-template-columns: auto auto auto;
       gap: 24px;
       align-items: start;
     }
@@ -3466,8 +3463,8 @@
   @media (max-width: 768px) {
 
     /* ── WHAT WE DO: bigger tap targets ── */
-    .wname { font-size: clamp(36px, 11vw, 64px) !important; }
-    .witem { min-height: 56px !important; padding: 6px 0 !important; }
+    .wname { font-size: clamp(40px, 12vw, 68px) !important; }
+    .witem { min-height: 68px !important; padding: 10px 0 !important; }
 
     /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
     .fig-top.fig-graphic-top {
@@ -3496,17 +3493,17 @@
       aspect-ratio: 1 / 1 !important;
     }
 
-    /* ── PHOTOGRAPHY: white text list above title ── */
+    /* ── PHOTOGRAPHY: dark text list ── */
     #photo .photo-overlay-list,
     #photo .photo-overlay-list * {
-      color: rgba(255,255,255,0.85) !important;
+      color: #1a1208 !important;
     }
   }
   </style>
 
 </div><!-- /app -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // LOADER + ANIMATIONS + SCROLL LIMITER
   const pages = Array.from(document.querySelectorAll('.page'));
   const app = document.getElementById('app');
@@ -4180,7 +4177,6 @@
 
         // click → open single photo bigger (only if not a drag)
         items.forEach(item => {
-          if (item.classList.contains('photo-cta-item')) return;
           item.style.cursor = 'pointer';
           item.addEventListener('click', () => {
             if (hasDragged) return;
@@ -4206,7 +4202,7 @@
       });
 
       // .ritem (masonry rendering cards)
-      document.querySelectorAll('.ritem:not(.ritem-no-modal)').forEach(item => {
+      document.querySelectorAll('.ritem').forEach(item => {
         item.addEventListener('click', () => {
           const title   = item.dataset.title   || item.querySelector('.ritem-cap')?.textContent.trim() || 'Untitled';
           const meta    = item.dataset.meta    || '';
@@ -4854,17 +4850,4 @@
           const bg = el.getAttribute('data-bg');
           if (bg) {
             el.style.backgroundImage = "url('" + bg + "')";
-            el.removeAttribute('data-bg');
-          }
-          bgObserver.unobserve(el);
-        }
-      });
-    }, { rootMargin: '200px' });
-
-    document.querySelectorAll('[data-bg]').forEach(function(el) {
-      bgObserver.observe(el);
-    });
-  })();
-</script>
-</body>
-</html>
+            el.removeAttribute('dat
