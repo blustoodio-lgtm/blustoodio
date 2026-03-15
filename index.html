@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     // Fix iOS 100vh — set --vh to actual visual viewport height
     function setVh() {
@@ -955,8 +957,6 @@
     #illustration .nav-logo,
     #illustration .nav-btn,
     #illustration .nav-pill-label { color: var(--white) !important; }
-    /* logo turns blu on white-bg character sheets */
-    #illustration.light-nav .nav-logo { color: var(--blu) !important; }
 
     /* ── right: scrollable thumbnail strip ── */
     .illus-thumb-panel {
@@ -1270,7 +1270,104 @@
       .nav { padding: 20px 22px; }
       .svc-wrap { padding: 20px 22px 48px; }
     }
-    /* ═══════════════════════════════════════════════════
+    /* ── ILLUSTRATION PAPER STACK ─────────────────────────────────────── */
+  #illusSwiper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  #illusSwiper .swiper-wrapper {
+    height: 100% !important;
+    transform: none !important; /* we drive all transforms manually */
+  }
+  .illus-card {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+    transform-origin: center center;
+    cursor: zoom-in;
+    overflow: hidden;
+    /* No CSS transition — transforms driven frame-by-frame by rAF */
+  }
+  .illus-card.zoomed { cursor: none; }
+  .illus-card-blur {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.5);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .illus-card-inner {
+    position: absolute;
+    inset: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    transition: background-size 0.35s ease;
+    pointer-events: none;
+  }
+  .illus-card.zoomed .illus-card-inner {
+    background-size: 220%;
+    transition: background-position 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-size 0.35s ease;
+  }
+  .illus-card-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 44px;
+    right: 44px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    pointer-events: none;
+  }
+  .illus-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: clamp(22px, 3vw, 42px);
+    color: #fff;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.6);
+  }
+  .illus-card-desc {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: clamp(11px, 1vw, 14px);
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.8), 0 2px 20px rgba(0,0,0,0.6);
+  }7);
+    letter-spacing: 0.01em;
+  }
+  #illusCounter {
+    position: absolute;
+    bottom: 28px;
+    right: 36px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+    z-index: 20;
+    pointer-events: none;
+  }
+  @media (max-width: 768px) {
+    .illus-card-caption { bottom: 24px; left: 20px; right: 20px; }
+    #illusCounter { bottom: 16px; right: 20px; }
+  }
+
+  /* ═══════════════════════════════════════════════════
        RESPONSIVE — all breakpoints, layout-only changes
        Normal desktop layout is completely untouched
     ═══════════════════════════════════════════════════ */
@@ -1720,7 +1817,7 @@
           });
 
           item.addEventListener('mouseleave', () => {
-            setTimeout(() => floater.classList.remove('wshow'), 300);
+            setTimeout(() => floater.classList.remove('wshow'), 900);
           });
         });
 
@@ -1859,7 +1956,7 @@
       </div>
 
       <!-- PROJECTS: mosaic square grid -->
-      <div class="masonry-grid">
+      <div class="masonry-grid carousel-visible">
 
         <!-- (05) Matera — big 2×2 TOP LEFT -->
         <div class="mitem big" data-title="Piccola Orchestra Materana Onyx" data-meta="Graphic Design · Music · OnyxDischi · LABA Brescia" data-desc="Art direction e packaging per il CD della Piccola Orchestra Materana Onyx, produzione OnyxDischi. Lettering custom a mano libera." data-gallery="images/Matera1.webp|images/Matera2.webp|images/Matera3.webp|images/Matera4.webp|images/Matera5.webp" data-modal-ar="4/3">
@@ -2273,10 +2370,7 @@
     <!-- photo counter -->
     <div class="photo-counter" id="photoCounter">01 / 04</div>
 
-    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:8;background:none;padding:0;gap:4px;">
-      <span class="cta-tile-coming" style="color:rgba(255,255,255,0.55);">coming soon..</span>
-      <span class="cta-tile-cta" style="color:#fff;font-size:clamp(14px,1.4vw,20px);">your project!</span>
-    </div>
+
 
   </section>
 
@@ -2300,67 +2394,85 @@
       </div>
     </nav>
 
-    <div class="illus-spotlight-wrap">
+    <!-- Paper-stack vertical Swiper -->
+    <div class="swiper" id="illusSwiper">
+      <div class="swiper-wrapper">
 
-      <!-- Big featured image -->
-      <div class="illus-spotlight-main" id="illusMain">
-        <div class="illus-spotlight-blur" id="illusMainBlur" data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
-        <div class="illus-spotlight-inner"   id="illusMainInner"  data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
-        <div class="illus-spotlight-inner-b" id="illusMainInnerB" data-bg="images/Illus_darkhorror.webp" style="background-image:none"></div>
-        <img loading="lazy" class="illus-spotlight-img" id="illusMainImg" src="images/Illus_darkhorror.webp" alt="Dark Horror">
-        <div class="illus-spotlight-caption">
-          <div class="illus-spotlight-title" id="illusMainTitle">Dark Horror</div>
-          <div class="illus-spotlight-desc"  id="illusMainDesc">Digital illustration — horror character scene.</div>
+        <div class="swiper-slide illus-card" data-title="Dark Horror" data-desc="Illustrazione digitale — scena con personaggio horror." style="background-image:url('images/Illus_darkhorror.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_darkhorror.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Dark Horror</span><span class="illus-card-desc">Illustrazione digitale — scena con personaggio horror.</span></div>
         </div>
+
+        <div class="swiper-slide illus-card" data-title="Freaky Bites" data-desc="Packaging illustrato per scatola di cereali." style="background-image:url('images/Illus_freakybites.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_freakybites.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Freaky Bites</span><span class="illus-card-desc">Packaging illustrato per scatola di cereali.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="This Is Nut Commercial" data-desc="Illustrazione digitale — personaggio skater per spot pubblicitario." style="background-image:url('images/Illus_skater.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_skater.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">This Is Nut Commercial</span><span class="illus-card-desc">Illustrazione digitale — personaggio skater per spot pubblicitario.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="I Don't Care" data-desc="Illustrazione digitale — personaggio alieno blu." style="background-image:url('images/Illus_idontcare.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_idontcare.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">I Don't Care</span><span class="illus-card-desc">Illustrazione digitale — personaggio alieno blu.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Mom Stop!" data-desc="Illustrazione digitale — ritratto di personaggio espressivo." style="background-image:url('images/Illus_momstop.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_momstop.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Mom Stop!</span><span class="illus-card-desc">Illustrazione digitale — ritratto di personaggio espressivo.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Guitarist" data-desc="Illustrazione digitale — personaggio chitarrista punk." style="background-image:url('images/Illus_guitarist.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_guitarist.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Guitarist</span><span class="illus-card-desc">Illustrazione digitale — personaggio chitarrista punk.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Portrait" data-desc="Illustrazione digitale — ritratto stilizzato di personaggio." style="background-image:url('images/Illus_smoking.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_smoking.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Portrait</span><span class="illus-card-desc">Illustrazione digitale — ritratto stilizzato di personaggio.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Old Man" data-desc="Illustrazione digitale — ritratto espressivo di vecchio." style="background-image:url('images/Illus_oldman.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Illus_oldman.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Old Man</span><span class="illus-card-desc">Illustrazione digitale — ritratto espressivo di vecchio.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Pig" data-desc="Illustrazione digitale — personaggio maiale demoniaco." style="background-image:url('images/Char_pig.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_pig.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Pig</span><span class="illus-card-desc">Illustrazione digitale — personaggio maiale demoniaco.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Iron Hollow — Full Party" data-desc="Lineup completo del party — tutti i personaggi insieme." style="background-image:url('images/Char_steel.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_steel.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Iron Hollow — Full Party</span><span class="illus-card-desc">Lineup completo del party — tutti i personaggi insieme.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Iron Hollow — Grim" data-desc="Scheda character design — Grim, classe guerriero nano." style="background-image:url('images/Char_grim.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_grim.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Iron Hollow — Grim</span><span class="illus-card-desc">Scheda character design — Grim, classe guerriero nano.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Iron Hollow — Pax" data-desc="Scheda character design — Pax, protagonista eroe." style="background-image:url('images/Char_pax.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_pax.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Iron Hollow — Pax</span><span class="illus-card-desc">Scheda character design — Pax, protagonista eroe.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Iron Hollow — Ogrim" data-desc="Scheda character design — Ogrim, nemico mostro." style="background-image:url('images/Char_ogrim.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_ogrim.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Iron Hollow — Ogrim</span><span class="illus-card-desc">Scheda character design — Ogrim, nemico mostro.</span></div>
+        </div>
+
+        <div class="swiper-slide illus-card" data-title="Iron Hollow — Max" data-desc="Scheda character design — Max, combattente con la spada." style="background-image:url('images/Char_max.webp')">
+          <div class="illus-card-blur" style="background-image:url('images/Char_max.webp')"></div>
+          <div class="illus-card-caption"><span class="illus-card-title">Iron Hollow — Max</span><span class="illus-card-desc">Scheda character design — Max, combattente con la spada.</span></div>
+        </div>
+
       </div>
-
-      <!-- Thumbnail strip -->
-      <div class="illus-thumb-panel" id="illusThumbPanel">
-        <div class="illus-thumb active" data-img="images/Illus_darkhorror.webp" data-title="Dark Horror" data-desc="Illustrazione digitale — scena con personaggio horror.">
-          <img loading="lazy" src="images/Illus_darkhorror.webp" alt="Dark Horror">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_freakybites.webp" data-title="Freaky Bites" data-desc="Packaging illustrato per scatola di cereali.">
-          <img loading="lazy" src="images/Illus_freakybites.webp" alt="Freaky Bites">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_skater.webp" data-title="This Is Nut Commercial" data-desc="Illustrazione digitale — personaggio skater per spot pubblicitario.">
-          <img loading="lazy" src="images/Illus_skater.webp" alt="This Is Nut Commercial">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_idontcare.webp" data-title="I Don't Care" data-desc="Illustrazione digitale — personaggio alieno blu.">
-          <img loading="lazy" src="images/Illus_idontcare.webp" alt="I Don't Care">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_momstop.webp" data-title="Mom Stop!" data-desc="Illustrazione digitale — ritratto di personaggio espressivo.">
-          <img loading="lazy" src="images/Illus_momstop.webp" alt="Mom Stop!">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_guitarist.webp" data-title="Guitarist" data-desc="Illustrazione digitale — personaggio chitarrista punk.">
-          <img loading="lazy" src="images/Illus_guitarist.webp" alt="Guitarist">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_smoking.webp" data-title="Portrait" data-desc="Illustrazione digitale — ritratto stilizzato di personaggio.">
-          <img loading="lazy" src="images/Illus_smoking.webp" alt="Portrait">
-        </div>
-        <div class="illus-thumb" data-img="images/Illus_oldman.webp" data-title="Old Man" data-desc="Illustrazione digitale — ritratto espressivo di vecchio.">
-          <img loading="lazy" src="images/Illus_oldman.webp" alt="Old Man">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_pig.webp" data-title="Pig" data-desc="Illustrazione digitale — personaggio maiale demoniaco.">
-          <img loading="lazy" src="images/Char_pig.webp" alt="Pig">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_steel.webp" data-title="Iron Hollow — Full Party" data-desc="Lineup completo del party — tutti i personaggi insieme.">
-          <img loading="lazy" src="images/Char_steel.webp" alt="Iron Hollow — Full Party">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_grim.webp" data-title="Iron Hollow — Grim" data-desc="Scheda character design — Grim, classe guerriero nano.">
-          <img loading="lazy" src="images/Char_grim.webp" alt="Iron Hollow — Grim">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_pax.webp" data-title="Iron Hollow — Pax" data-desc="Scheda character design — Pax, protagonista eroe.">
-          <img loading="lazy" src="images/Char_pax.webp" alt="Iron Hollow — Pax">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_ogrim.webp" data-title="Iron Hollow — Ogrim" data-desc="Scheda character design — Ogrim, nemico mostro.">
-          <img loading="lazy" src="images/Char_ogrim.webp" alt="Iron Hollow — Ogrim">
-        </div>
-        <div class="illus-thumb" data-img="images/Char_max.webp" data-title="Iron Hollow — Max" data-desc="Scheda character design — Max, combattente con la spada.">
-          <img loading="lazy" src="images/Char_max.webp" alt="Iron Hollow — Max">
-        </div>
-      </div>
-
     </div>
+
+    <!-- counter -->
+    <div id="illusCounter">01 / 14</div>
 
     <!-- title overlaid top-left -->
     <div class="illus-overlay-title">
@@ -2543,12 +2655,16 @@
           <div class="ritem-cap"><span class="ritem-num">(13)*</span><span class="ritem-cap-title">Orco — Desert Colossus</span></div>
         </div>
 
-      </div>
-    </div>
+        <!-- CTA as last ritem inside grid -->
+        <div class="ritem ritem-cta" onclick="go('do')" style="cursor:pointer;background:#f0f0ee;">
+          <div class="ritem-img" style="background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+            <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:0.12em;color:rgba(20,0,255,0.4);text-transform:lowercase;">coming soon..</span>
+            <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:clamp(16px,1.8vw,24px);letter-spacing:-0.02em;color:var(--blu);text-transform:uppercase;text-align:center;">your<br>project!</span>
+          </div>
+          <div class="ritem-cap"><span class="ritem-num">(14)*</span><span class="ritem-cap-title">Your Project</span></div>
+        </div>
 
-    <div class="cta-tile" onclick="go('do')">
-      <span class="cta-tile-coming">coming soon..</span>
-      <span class="cta-tile-cta">your project!</span>
+      </div>
     </div>
 
   </section>
@@ -2573,8 +2689,9 @@
       transition: color 0.35s ease, font-size 0.15s ease, opacity 0.2s ease;
     }
 
-    #cursor.on-light { color: var(--blu); }
+    #cursor.on-light { color: var(--white); }
     #cursor.on-dark  { color: var(--white); }
+    #cursor.on-off   { color: var(--blu); }
 
     #cursor.is-hover { font-size: 68px; }
 
@@ -3295,6 +3412,11 @@
       overflow: hidden;
       background: #111; /* dark bg so text stays readable before images load */
     }
+    #photo .nav-logo,
+    #photo .nav-btn,
+    #photo .nav-pill-label {
+      text-shadow: 0 1px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6);
+    }
     .photo-strip {
       display: flex;
       flex-direction: row;
@@ -3504,6 +3626,8 @@
 
 </div><!-- /app -->
 
+<div id="cursor" class="on-light">*</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // LOADER + ANIMATIONS + SCROLL LIMITER
   const pages = Array.from(document.querySelectorAll('.page'));
@@ -3514,6 +3638,8 @@
   function addFadeSelectors() {
     const fadeEls = document.querySelectorAll('.home-wordmark, .what-list a, .about-wrap, .svc-top, .pitem, .nav');
     fadeEls.forEach(el => el.classList.add('fade-up'));
+    // trigger fig-anim-item and masonry items when graphic section is observed
+    document.querySelectorAll('.fig-anim-item').forEach(el => el.classList.add('in'));
     const whatList = document.querySelector('.what-list');
     if (whatList) whatList.setAttribute('data-stagger', 'true');
   }
@@ -3717,7 +3843,7 @@
       if (_transitioning || swipeLock) return;
       const cur = _navStack[_navStack.length - 1];
       if (cur === 'home') return;
-      const dx = tStartX - e.changedTouches[0].clientX; // positive = swipe left
+      const dx = tStartX - e.changedTouches[0].clientX;
       const dy = Math.abs(tStartY - e.changedTouches[0].clientY);
       const swipeThresh = window.innerWidth < 768 ? 50 : 80;
       if (dx > swipeThresh && dy < dx / AXIS_RATIO) {
@@ -4116,7 +4242,22 @@
         const items = strip.querySelectorAll('.photo-strip-item');
         const total = items.length;
 
-        // update counter based on scroll position
+        // Preload images near viewport as user scrolls
+        function preloadNearby() {
+          const stripRect = strip.getBoundingClientRect();
+          const buffer = window.innerWidth * 1.5;
+          items.forEach(item => {
+            const img = item.querySelector('img');
+            if (!img) return;
+            const rect = item.getBoundingClientRect();
+            if (rect.left < stripRect.right + buffer && rect.right > stripRect.left - buffer) {
+              if (img.getAttribute('loading') === 'lazy') {
+                img.setAttribute('loading', 'eager');
+              }
+            }
+          });
+        }
+
         function updateCounter() {
           const itemWidth = strip.firstElementChild ? strip.firstElementChild.offsetWidth : 0;
           if (!itemWidth) return;
@@ -4128,6 +4269,7 @@
         strip.addEventListener('scroll', () => {
           if (hint && strip.scrollLeft > 40) hint.classList.add('hidden');
           updateCounter();
+          preloadNearby();
         }, { passive: true });
 
         // drag-to-scroll
@@ -4155,28 +4297,34 @@
           updateCounter();
         }, { passive: false });
 
-        // fade list when scrolled right, restore when back near left
+        // fade list when scrolled right
         const overlayList = document.querySelector('.photo-overlay-list');
         strip.addEventListener('scroll', () => {
-          if (hint && strip.scrollLeft > 40) hint.classList.add('hidden');
           if (overlayList) {
             if (strip.scrollLeft > 80) overlayList.classList.add('faded');
             else overlayList.classList.remove('faded');
           }
-          updateCounter();
         }, { passive: true });
+
+        // touch scroll
+        let touchStartX = 0, touchScrollLeft = 0;
         strip.addEventListener('touchstart', e => {
           hasDragged = false;
           touchStartX = e.touches[0].pageX;
           touchScrollLeft = strip.scrollLeft;
+          e.stopPropagation();
         }, { passive: true });
         strip.addEventListener('touchmove', e => {
           const dx = touchStartX - e.touches[0].pageX;
           if (Math.abs(dx) > 5) hasDragged = true;
           strip.scrollLeft = touchScrollLeft + dx;
+          e.stopPropagation();
+        }, { passive: true });
+        strip.addEventListener('touchend', e => {
+          e.stopPropagation();
         }, { passive: true });
 
-        // click → open single photo bigger (only if not a drag)
+        // click → open modal
         items.forEach(item => {
           item.style.cursor = 'pointer';
           item.addEventListener('click', () => {
@@ -4188,6 +4336,9 @@
             openModal(title, '', '', mainSrc, [mainSrc]);
           });
         });
+
+        // preload first few immediately
+        preloadNearby();
       })();
 
       // .pitem (old style)
@@ -4203,198 +4354,495 @@
       });
 
       // .ritem (masonry rendering cards)
-      document.querySelectorAll('.ritem').forEach(item => {
+      document.querySelectorAll('.ritem:not(.ritem-cta)').forEach(item => {
         item.addEventListener('click', () => {
           const title   = item.dataset.title   || item.querySelector('.ritem-cap')?.textContent.trim() || 'Untitled';
           const meta    = item.dataset.meta    || '';
           const desc    = item.dataset.desc    || '';
-          const mainSrc = item.dataset.img     || '';
           const gallery = item.dataset.gallery ? item.dataset.gallery.split('|') : [];
-          openModal(title, meta, desc, mainSrc, gallery);
+          const mainSrc = item.dataset.img || (gallery[0] || '');
+          item.style.transition = 'transform 0.15s cubic-bezier(0.2,0.9,0.2,1)';
+          item.style.transform  = 'scale(0.94)';
+          setTimeout(() => {
+            item.style.transform = ''; item.style.transition = '';
+            openPanoramaSlider(title, meta, desc, gallery.length ? gallery : [mainSrc]);
+          }, 130);
         });
       });
+
+      // ── PANORAMA SLIDER (3D Rendering) ───────────────────────────────
+      (function() {
+        const overlay   = document.getElementById('panoramaOverlay');
+        if (!overlay) return;
+        const closeBtn  = document.getElementById('panoramaClose');
+        const scrollEl  = document.getElementById('panoramaScroll');
+        const track     = document.getElementById('panoramaTrack');
+        const titleEl   = document.getElementById('panoramaTitle');
+        const metaEl    = document.getElementById('panoramaMeta');
+        const counterEl = document.getElementById('panoramaCounter');
+        let total = 0;
+
+        function closePanorama() {
+          overlay.classList.remove('pano-visible');
+          setTimeout(() => { overlay.classList.remove('pano-open'); track.innerHTML = ''; }, 400);
+        }
+        closeBtn.addEventListener('click', closePanorama);
+        overlay.addEventListener('click', e => { if (e.target === overlay) closePanorama(); });
+        document.addEventListener('keydown', e => {
+          if (!overlay.classList.contains('pano-open')) return;
+          if (e.key === 'Escape') closePanorama();
+          if (e.key === 'ArrowRight') scrollEl.scrollBy({ left: window.innerWidth * 0.7, behavior: 'smooth' });
+          if (e.key === 'ArrowLeft')  scrollEl.scrollBy({ left: -window.innerWidth * 0.7, behavior: 'smooth' });
+        });
+
+        // drag-to-scroll on desktop
+        let isDown = false, startX = 0, startScrollLeft = 0;
+        scrollEl.addEventListener('mousedown', e => {
+          isDown = true; startX = e.pageX; startScrollLeft = scrollEl.scrollLeft;
+          scrollEl.classList.add('grabbing');
+        });
+        window.addEventListener('mouseup', () => { isDown = false; scrollEl.classList.remove('grabbing'); });
+        window.addEventListener('mousemove', e => {
+          if (!isDown) return;
+          scrollEl.scrollLeft = startScrollLeft - (e.pageX - startX);
+        });
+
+        // update counter on scroll
+        scrollEl.addEventListener('scroll', () => {
+          const slides = track.querySelectorAll('.pano-slide');
+          if (!slides.length) return;
+          // find closest slide to center
+          const cx = scrollEl.scrollLeft + scrollEl.clientWidth / 2;
+          let best = 0, bestDist = Infinity;
+          slides.forEach((s, i) => {
+            const mid = s.offsetLeft + s.offsetWidth / 2;
+            const d   = Math.abs(mid - cx);
+            if (d < bestDist) { bestDist = d; best = i; }
+          });
+          counterEl.textContent = String(best + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+        }, { passive: true });
+
+        window.openPanoramaSlider = function(title, meta, desc, gallery) {
+          track.innerHTML = '';
+          gallery.forEach(src => {
+            const slide = document.createElement('div');
+            slide.className = 'pano-slide';
+            const img = document.createElement('img');
+            img.src = src; img.alt = title; img.loading = 'eager';
+            img.draggable = false;
+            slide.appendChild(img);
+            track.appendChild(slide);
+          });
+          titleEl.textContent = title;
+          metaEl.textContent  = meta || '';
+          counterEl.textContent = '01 / ' + String(gallery.length).padStart(2,'0');
+          // add pano-has-gallery when multiple images (enables pan animation)
+          if (gallery.length > 1) overlay.classList.add('pano-has-gallery');
+          else overlay.classList.remove('pano-has-gallery');
+          overlay.classList.add('pano-open');
+          overlay.offsetHeight;
+          overlay.classList.add('pano-visible');
+          // scroll to first slide
+          requestAnimationFrame(() => { scrollEl.scrollLeft = 0; });
+        };
+      })();
+
+      // ── mitem (graphic design) → poster slider ──────────────────────────
+      document.querySelectorAll('.mitem:not(.mitem-empty):not(.mitem-no-modal)').forEach(item => {
+        item.addEventListener('click', () => {
+          const title   = item.dataset.title || '';
+          const meta    = item.dataset.meta  || '';
+          const desc    = item.dataset.desc  || '';
+          const gallery = item.dataset.gallery ? item.dataset.gallery.split('|') : [];
+          const ar      = item.dataset.modalAr || '4/3';
+          item.style.transition = 'transform 0.15s cubic-bezier(0.2,0.9,0.2,1)';
+          item.style.transform  = 'scale(0.94)';
+          setTimeout(() => {
+            item.style.transform  = '';
+            item.style.transition = '';
+            openPosterSlider(title, meta, desc, gallery, ar);
+          }, 140);
+        });
+      });
+
+      // ── POSTER SLIDER ──────────────────────────────────────────────────
+      (function() {
+        const overlay   = document.getElementById('posterOverlay');
+        const closeBtn  = document.getElementById('posterClose');
+        const wrapper   = document.getElementById('posterWrapper');
+        const titleEl   = document.getElementById('posterTitle');
+        const metaEl    = document.getElementById('posterMeta');
+        const counterEl = document.getElementById('posterCounter');
+        const descEl    = document.getElementById('posterDesc');
+        let ps = null;
+
+        function closePoster() {
+          overlay.classList.remove('open-visible');
+          setTimeout(() => {
+            overlay.classList.remove('open');
+            if (ps) { ps.destroy(true, true); ps = null; }
+            wrapper.innerHTML = '';
+          }, 400);
+        }
+        closeBtn.addEventListener('click', closePoster);
+        overlay.addEventListener('click', e => { if (e.target === overlay) closePoster(); });
+        document.addEventListener('keydown', e => {
+          if (!overlay.classList.contains('open')) return;
+          if (e.key === 'Escape') closePoster();
+          if (e.key === 'ArrowRight' && ps) ps.slideNext();
+          if (e.key === 'ArrowLeft'  && ps) ps.slidePrev();
+        });
+
+        function applyPaperTransforms(swiper) {
+          swiper.slides.forEach(slide => {
+            const p = slide.progress;
+            const absP = Math.abs(p);
+            const rot  = p * -25;
+            const sc   = 1 - absP * 0.25;
+            const tz   = -absP * 200;
+            const op   = 1 - absP * 0.5;
+            slide.style.transform = 'rotateY(' + rot + 'deg) scale(' + sc + ') translateZ(' + tz + 'px)';
+            slide.style.opacity   = String(op);
+            slide.style.zIndex    = String(Math.round(100 - absP * 10));
+          });
+        }
+
+        window.openPosterSlider = function(title, meta, desc, gallery, ar) {
+          wrapper.innerHTML = '';
+          const hint = document.getElementById('posterHint');
+          const slideH = window.innerHeight * (window.innerWidth < 768 ? 0.65 : 0.72);
+          let loaded = 0;
+          const slides = [];
+          gallery.forEach(function(src, i) {
+            const probe = new Image();
+            probe.onload = function() {
+              const ratio = probe.naturalWidth / probe.naturalHeight;
+              slides[i] = { src: src, slideW: Math.round(slideH * ratio) };
+              loaded++;
+              if (loaded === gallery.length) buildSlider();
+            };
+            probe.onerror = function() {
+              const parts = ar.split('/');
+              const ratio = parseFloat(parts[0]) / parseFloat(parts[1]);
+              slides[i] = { src: src, slideW: Math.round(slideH * ratio) };
+              loaded++;
+              if (loaded === gallery.length) buildSlider();
+            };
+            probe.src = src;
+          });
+          titleEl.textContent = title;
+          metaEl.textContent  = meta;
+          descEl.textContent  = desc;
+          if (hint) hint.classList.remove('hidden');
+          overlay.classList.add('open');
+          overlay.offsetHeight;
+          overlay.classList.add('open-visible');
+
+          function buildSlider() {
+            wrapper.innerHTML = '';
+            slides.forEach(function(s) {
+              const slide = document.createElement('div');
+              slide.className = 'swiper-slide';
+              slide.style.width = s.slideW + 'px';
+              const pSlide = document.createElement('div');
+              pSlide.className = 'poster-slide';
+              const pBlur  = document.createElement('div'); pBlur.className  = 'poster-blur';
+              const pSharp = document.createElement('div'); pSharp.className = 'poster-sharp';
+              pBlur.style.backgroundImage  = 'url(' + s.src + ')';
+              pSharp.style.backgroundImage = 'url(' + s.src + ')';
+              pSlide.appendChild(pBlur);
+              pSlide.appendChild(pSharp);
+              slide.appendChild(pSlide);
+              wrapper.appendChild(slide);
+            });
+
+            requestAnimationFrame(function() { requestAnimationFrame(function() {
+              if (ps) { ps.destroy(true, true); ps = null; }
+              ps = new Swiper('#posterSwiper', {
+                slidesPerView: 'auto',
+                centeredSlides: true,
+                spaceBetween: window.innerWidth < 768 ? 18 : 36,
+                grabCursor: true,
+                initialSlide: 0,
+                touchReleaseOnEdges: false,
+                mousewheel: { enabled: true, forceToAxis: true, sensitivity: 1 },
+                on: {
+                  init: function(swiper) {
+                    applyPaperTransforms(swiper);
+                    counterEl.textContent = '01 / ' + String(swiper.slides.length).padStart(2,'0');
+                  },
+                  setTranslate: function(swiper) { applyPaperTransforms(swiper); },
+                  slideChange: function(swiper) {
+                    var i = swiper.realIndex + 1;
+                    var t = swiper.slides.length;
+                    counterEl.textContent = String(i).padStart(2,'0') + ' / ' + String(t).padStart(2,'0');
+                    if (hint) hint.classList.add('hidden');
+                    document.querySelectorAll('#posterWrapper .poster-slide.zoomed').forEach(function(s2) {
+                      s2.classList.remove('zoomed');
+                      var sh = s2.querySelector('.poster-sharp');
+                      if (sh) sh.style.backgroundPosition = 'center';
+                    });
+                  },
+                  touchStart: function() { if (hint) hint.classList.add('hidden'); }
+                }
+              });
+
+              document.querySelectorAll('#posterWrapper .poster-slide').forEach(function(slide) {
+                var sharp = slide.querySelector('.poster-sharp');
+                function pZoom(clientX, clientY) {
+                  var r = slide.getBoundingClientRect();
+                  var px = ((Math.max(r.left, Math.min(r.right, clientX)) - r.left) / r.width) * 100;
+                  var py = ((Math.max(r.top, Math.min(r.bottom, clientY)) - r.top) / r.height) * 100;
+                  sharp.style.backgroundPosition = px + '% ' + py + '%';
+                }
+                slide.addEventListener('click', function(e) {
+                  if (!ps || !ps.allowClick) return;
+                  slide.classList.toggle('zoomed');
+                  if (slide.classList.contains('zoomed')) pZoom(e.clientX, e.clientY);
+                  else { sharp.style.backgroundPosition = 'center'; }
+                });
+                slide.addEventListener('mousemove', function(e) {
+                  if (!slide.classList.contains('zoomed')) return;
+                  pZoom(e.clientX, e.clientY);
+                });
+              });
+            }); });
+          }
+        };
+      })();
 
       // ── Graphic Design preview pane ──
       (function() {
         // no tilt on graphic design — keep transforms clean
       })();
 
-      // ── Illustration spotlight panel ──
+      // ── Illustration paper-stack (scroll-driven) ──────────────────────
       (function() {
-        const panel   = document.getElementById('illusThumbPanel');
-        const main    = document.getElementById('illusMain');
-        const inner   = document.getElementById('illusMainInner');
-        const blur    = document.getElementById('illusMainBlur');
-        const titleEl = document.querySelector('#illustration .illus-overlay-title');
-        const thumbs  = Array.from(document.querySelectorAll('.illus-thumb'));
-        if (!panel || !main || !inner) return;
+        const section   = document.getElementById('illustration');
+        if (!section) return;
+        const counterEl = document.getElementById('illusCounter');
+        const cards     = Array.from(section.querySelectorAll('.illus-card'));
+        const total     = cards.length;
+        if (!total) return;
 
-        let activeLayer = 'a';
-        let currentIdx  = 0;
-
-        function showImage(idx) {
-          if (idx < 0 || idx >= thumbs.length) return;
-          currentIdx = idx;
-          const thumb = thumbs[idx];
-          const img   = thumb.dataset.img;
-          const title = thumb.dataset.title;
-          const desc  = thumb.dataset.desc;
-          const innerB = document.getElementById('illusMainInnerB');
-
-          if (activeLayer === 'a') {
-            if (innerB) {
-              innerB.style.backgroundImage    = "url('" + img + "')";
-              innerB.style.backgroundPosition = 'center';
-              requestAnimationFrame(() => { innerB.style.opacity = '1'; inner.style.opacity = '0'; });
-            }
-            activeLayer = 'b';
-          } else {
-            inner.style.backgroundImage    = "url('" + img + "')";
-            inner.style.backgroundPosition = 'center';
-            requestAnimationFrame(() => { inner.style.opacity = '1'; if (innerB) innerB.style.opacity = '0'; });
-            activeLayer = 'a';
+        // Build inner sharp layer for zoom on each card
+        cards.forEach(card => {
+          if (!card.querySelector('.illus-card-inner')) {
+            const inner = document.createElement('div');
+            inner.className = 'illus-card-inner';
+            inner.style.backgroundImage = card.style.backgroundImage;
+            const caption = card.querySelector('.illus-card-caption');
+            card.insertBefore(inner, caption);
           }
+          // give each card a hardware-composited layer
+          card.style.willChange = 'transform';
+          card.style.transition = 'none'; // transforms driven by scroll, not CSS transition
+        });
 
-          if (blur) blur.style.backgroundImage = "url('" + img + "')";
-          document.getElementById('illusMainTitle').textContent = title;
-          document.getElementById('illusMainDesc').textContent  = desc;
-          main.dataset.img   = img;
-          main.dataset.title = title;
-          main.dataset.desc  = desc;
+        // ── Virtual scroll state ──────────────────────────────────────────
+        // We convert scroll into a 0..total-1 float
+        // Each integer = one card advance
+        const CARD_SCROLL_PX = 500; // px of scroll per card
+        let illusScrollY = 0;          // virtual scroll accumulator (animated)
+        let targetCard   = 0;          // committed target card index
+        let rafPending = false;
 
-          const lightBgImgs = ['Char_grim','Char_pax','Char_ogrim','Char_max','Char_steel'];
-          const isLight = lightBgImgs.some(n => img.includes(n));
-          main.classList.toggle('light-bg', isLight);
-          const illusSection = document.getElementById('illustration');
-          if (illusSection) illusSection.classList.toggle('light-nav', isLight);
+        function render() {
+          rafPending = false;
+          const progress = illusScrollY / CARD_SCROLL_PX; // 0..total-1 float
+          const activeF  = Math.max(0, Math.min(progress, total - 1));
 
+          cards.forEach((card, i) => {
+            // How far this card is from the "active" position
+            // positive = still to come (below), negative = already gone (above)
+            const rel = i - activeF;
 
+            let ty, sc, op, zi, shadow;
 
-          main.classList.remove('zoomed');
-          inner.style.backgroundPosition = 'center';
-          if (innerB) innerB.style.backgroundPosition = 'center';
-
-          thumbs.forEach(t => t.classList.remove('active'));
-          thumb.classList.add('active');
-
-          // scroll thumb into view in panel
-          const tTop  = thumb.offsetTop;
-          const tBot  = tTop + thumb.offsetHeight;
-          const pTop  = panel.scrollTop;
-          const pBot  = pTop + panel.clientHeight;
-          if (tTop < pTop || tBot > pBot) {
-            panel.scrollTo({ top: tTop - panel.clientHeight / 2 + thumb.offsetHeight / 2, behavior: 'smooth' });
-          }
-
-          // title visibility
-          if (titleEl) titleEl.classList.toggle('hidden', idx > 0);
-        }
-
-        // init
-        showImage(0);
-
-        // thumb click
-        thumbs.forEach((t, i) => { t.onclick = () => showImage(i); });
-
-        // ── wheel scroll: respond fast, lock only for crossfade duration ──
-        let wheelAccum = 0;
-        let wheelLock  = false;
-        let wheelResetTimer = null;
-
-        function onWheel(e) {
-          e.preventDefault();
-          if (wheelLock) return;
-          wheelAccum += e.deltaY;
-          // reset accumulator if user pauses
-          clearTimeout(wheelResetTimer);
-          wheelResetTimer = setTimeout(() => { wheelAccum = 0; }, 300);
-          if (Math.abs(wheelAccum) >= 80) {
-            wheelLock = true;
-            if (wheelAccum > 0) showImage(currentIdx + 1);
-            else                showImage(currentIdx - 1);
-            wheelAccum = 0;
-            setTimeout(() => { wheelLock = false; }, 320);
-          }
-        }
-        main.addEventListener('wheel',  onWheel, { passive: false });
-        panel.addEventListener('wheel', onWheel, { passive: false });
-
-        // ── touch swipe on main image to go prev/next (mobile) ──
-        let illusTouchStartX = 0, illusTouchStartY = 0;
-        main.addEventListener('touchstart', function(e) {
-          illusTouchStartX = e.touches[0].clientX;
-          illusTouchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        main.addEventListener('touchend', function(e) {
-          if (main.classList.contains('zoomed')) return;
-          const dx = illusTouchStartX - e.changedTouches[0].clientX;
-          const dy = Math.abs(illusTouchStartY - e.changedTouches[0].clientY);
-          if (Math.abs(dx) > 40 && dy < Math.abs(dx) * 0.6) return; // horizontal = page nav
-          const swipeUp = e.changedTouches[0].clientY - illusTouchStartY < -40;
-          const swipeDown = e.changedTouches[0].clientY - illusTouchStartY > 40;
-          if (swipeUp)   showImage(currentIdx + 1);
-          if (swipeDown) showImage(currentIdx - 1);
-        }, { passive: true });
-
-        // ── zoom ──────────────────────────────────────────────────────────
-        function updateZoomPan(clientX, clientY) {
-          const r  = main.getBoundingClientRect();
-          const px = ((Math.max(r.left, Math.min(r.right,  clientX)) - r.left) / r.width)  * 100;
-          const py = ((Math.max(r.top,  Math.min(r.bottom, clientY)) - r.top)  / r.height) * 100;
-          inner.style.backgroundPosition = px + '% ' + py + '%';
-          const ib = document.getElementById('illusMainInnerB');
-          if (ib) ib.style.backgroundPosition = px + '% ' + py + '%';
-        }
-        const illusCursor = document.getElementById('cursor');
-        const isTouchDevice = ('ontouchstart' in window);
-
-        if (isTouchDevice) {
-          // MOBILE: tap opens fullscreen overlay
-          main.addEventListener('click', (e) => {
-            var overlay = document.getElementById('mobileZoomOverlay');
-            if (!overlay) {
-              overlay = document.createElement('div');
-              overlay.id = 'mobileZoomOverlay';
-              overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
-              var zImg = document.createElement('div');
-              zImg.id  = 'mobileZoomImg';
-              zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
-              overlay.appendChild(zImg);
-              overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
-              document.body.appendChild(overlay);
-            }
-            const src = inner.style.backgroundImage || (document.getElementById('illusMainInnerB') && document.getElementById('illusMainInnerB').style.opacity === '1' ? document.getElementById('illusMainInnerB').style.backgroundImage : inner.style.backgroundImage);
-            document.getElementById('mobileZoomImg').style.backgroundImage = src;
-            overlay.style.display = 'flex';
-          });
-        } else {
-          // DESKTOP: click to zoom + mouse-pan
-          main.addEventListener('click', (e) => {
-            main.classList.toggle('zoomed');
-            if (main.classList.contains('zoomed')) {
-              updateZoomPan(e.clientX, e.clientY);
-              if (illusCursor) illusCursor.classList.add('hidden');
+            if (rel <= -1) {
+              // Fully gone — above viewport
+              ty     = -110;  // % units
+              sc     = 1;
+              op     = 0;
+              zi     = 0;
+              shadow = 'none';
+            } else if (rel < 0) {
+              // Peeling off — interpolate from visible to gone
+              const t = -rel; // 0..1  (1 = just left, 0 = active)
+              ty      = -110 * t;
+              sc      = 1;
+              op      = 1 - t * 0.4;
+              zi      = total + 20;
+              shadow  = '0 24px 60px rgba(0,0,0,' + (0.6 - t * 0.4) + ')';
+            } else if (rel < 1) {
+              // Active / entering — front card, fully visible
+              ty     = 0;
+              sc     = 1;
+              op     = 1;
+              zi     = total + 10 - Math.floor(rel * 0.01);
+              shadow = '0 24px 60px rgba(0,0,0,0.6)';
             } else {
-              inner.style.backgroundPosition = 'center';
-              const ib = document.getElementById('illusMainInnerB');
-              if (ib) ib.style.backgroundPosition = 'center';
-              if (illusCursor) illusCursor.classList.remove('hidden');
+              // Stacked below — peek effect
+              const depth = Math.min(rel, 5);
+              sc     = 1 - depth * 0.04;
+              ty     = 0; // in px via translateY
+              op     = depth > 4 ? 0 : 1;
+              zi     = total - i;
+              shadow = '0 8px 30px rgba(0,0,0,0.35)';
+              // peek offset: cards below shift down slightly
+              const pxOffset = (depth) * 14;
+              card.style.transform  = 'translateY(' + pxOffset + 'px) scale(' + sc + ')';
+              card.style.opacity    = String(op);
+              card.style.zIndex     = String(zi);
+              card.style.boxShadow  = shadow;
+              return;
             }
+
+            card.style.transform  = 'translateY(' + ty + '%) scale(' + sc + ')';
+            card.style.opacity    = String(op);
+            card.style.zIndex     = String(zi);
+            card.style.boxShadow  = shadow;
           });
-          document.addEventListener('mousemove', (e) => {
-            if (!main.classList.contains('zoomed')) return;
-            updateZoomPan(e.clientX, e.clientY);
-          });
+
+          // counter
+          const idx = Math.min(Math.round(activeF), total - 1);
+          if (counterEl) {
+            counterEl.textContent =
+              String(idx + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+          }
+
+          // hide ILLUS*TRATION title after first card
+          const titleEl = section.querySelector('.illus-overlay-title');
+          const listEl  = section.querySelector('.illus-overlay-list');
+          const fadeOut = activeF > 0.3;
+          if (titleEl) titleEl.classList.toggle('hidden', fadeOut);
+          if (listEl)  listEl.style.opacity = fadeOut ? '0' : '';
+
+          // toggle light-nav for white-bg character sheets (Char_* except Char_pig)
+          const activeCard = cards[idx];
+          const src = activeCard ? (activeCard.style.backgroundImage || '') : '';
+          const isLight = src.includes('Char_') && !src.includes('Char_pig');
+          section.classList.toggle('light-nav', isLight);
         }
 
-        // keyboard
-        document.addEventListener('keydown', (e) => {
-          const sec = document.getElementById('illustration');
-          if (!sec) return;
-          if (e.key === 'ArrowDown') showImage(currentIdx + 1);
-          if (e.key === 'ArrowUp')   showImage(currentIdx - 1);
+        let snapTimer = null;
+        function addScroll(delta) {
+          const maxScroll = (total - 1) * CARD_SCROLL_PX;
+          // use committed targetCard so concurrent animations don't accumulate
+          const nextCard = targetCard + (delta > 0 ? 1 : -1);
+          const clampedCard = Math.max(0, Math.min(nextCard, total - 1));
+          if (clampedCard === targetCard) return; // already at edge
+          targetCard = clampedCard;
+          const target = targetCard * CARD_SCROLL_PX;
+          const start = illusScrollY;
+          const dist  = target - start;
+          if (Math.abs(dist) < 1) return;
+          const dur = 420;
+          const t0  = performance.now();
+          function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+          function step(now) {
+            const prog = Math.min((now - t0) / dur, 1);
+            illusScrollY = start + dist * ease(prog);
+            if (!rafPending) { rafPending = true; requestAnimationFrame(render); }
+            if (prog < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        // Initial render
+        render();
+
+        // ── Wheel — accumulate deltaY, advance only when threshold hit ──
+        let wheelLock = false;
+        let wheelAccum = 0;
+        let wheelResetTimer = null;
+        section.addEventListener('wheel', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (wheelLock) return;
+          // accumulate scroll - require deliberate scroll to advance
+          wheelAccum += Math.abs(e.deltaY);
+          clearTimeout(wheelResetTimer);
+          wheelResetTimer = setTimeout(() => { wheelAccum = 0; }, 400);
+          if (wheelAccum < 120) return; // threshold - must scroll enough
+          wheelAccum = 0;
+          wheelLock = true;
+          addScroll(e.deltaY > 0 ? CARD_SCROLL_PX : -CARD_SCROLL_PX);
+          setTimeout(() => { wheelLock = false; }, 700);
+        }, { passive: false });
+
+        // ── Touch ────────────────────────────────────────────────────────
+        let ty0 = 0, touchLock = false;
+        section.addEventListener('touchstart', e => {
+          ty0 = e.touches[0].clientY;
+        }, { passive: true });
+        section.addEventListener('touchend', e => {
+          if (touchLock) return;
+          const dy = ty0 - e.changedTouches[0].clientY;
+          if (Math.abs(dy) < 20) return;
+          touchLock = true;
+          addScroll(dy > 0 ? CARD_SCROLL_PX : -CARD_SCROLL_PX);
+          setTimeout(() => { touchLock = false; }, 450);
+        }, { passive: true });
+
+        // ── Keyboard ─────────────────────────────────────────────────────
+        document.addEventListener('keydown', e => {
+          const illSec = document.getElementById('illustration');
+          if (!illSec) return;
+          if (e.key === 'ArrowDown') addScroll(CARD_SCROLL_PX);
+          if (e.key === 'ArrowUp')   addScroll(-CARD_SCROLL_PX);
+        });
+
+        // ── Zoom (same blur+sharp system as modal) ────────────────────────
+        const cursor = document.getElementById('cursor');
+        const isMobile = ('ontouchstart' in window);
+
+        cards.forEach(card => {
+          const inner = card.querySelector('.illus-card-inner');
+
+          if (isMobile) {
+            card.addEventListener('click', () => {
+              var overlay = document.getElementById('mobileZoomOverlay');
+              if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'mobileZoomOverlay';
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+                var zImg = document.createElement('div');
+                zImg.id = 'mobileZoomImg';
+                zImg.style.cssText = 'width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;';
+                overlay.appendChild(zImg);
+                overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+                document.body.appendChild(overlay);
+              }
+              document.getElementById('mobileZoomImg').style.backgroundImage = card.style.backgroundImage;
+              overlay.style.display = 'flex';
+            });
+          } else {
+            function zoomPan(clientX, clientY) {
+              if (!inner) return;
+              const r  = card.getBoundingClientRect();
+              const px = ((Math.max(r.left, Math.min(r.right, clientX))  - r.left) / r.width)  * 100;
+              const py = ((Math.max(r.top,  Math.min(r.bottom, clientY)) - r.top)  / r.height) * 100;
+              inner.style.backgroundPosition = px + '% ' + py + '%';
+            }
+            card.addEventListener('click', e => {
+              card.classList.toggle('zoomed');
+              if (card.classList.contains('zoomed')) {
+                zoomPan(e.clientX, e.clientY);
+                if (cursor) cursor.classList.add('hidden');
+              } else {
+                if (inner) inner.style.backgroundPosition = 'center';
+                if (cursor) cursor.classList.remove('hidden');
+              }
+            });
+            document.addEventListener('mousemove', e => {
+              if (!card.classList.contains('zoomed')) return;
+              zoomPan(e.clientX, e.clientY);
+            });
+          }
         });
       })();
+
 
       // ── Nav pill cycling ──────────────────────────────────
       (function() {
@@ -4405,441 +4853,238 @@
             pill.querySelectorAll('.nav-pill-label').forEach(span => {
               const w = span.dataset.navWord;
               span.classList.remove('active-label', 'leaving-label');
-              if (w === newWord) {
-                span.classList.add('active-label');
-              } else if (w === oldWord) {
-                span.classList.add('leaving-label');
-                setTimeout(() => span.classList.remove('leaving-label'), 420);
-              }
+              if (w === newWord) span.classList.add('active-label');
+              else if (w === oldWord) span.classList.add('leaving-label');
             });
           });
         }
-        setWord(words[0], null); // start with WHAT
         setInterval(() => {
-          const prev = words[idx];
-          idx = (idx + 1) % words.length;
-          setWord(words[idx], prev);
-        }, 1100);
-
-        // ── Tap to expand on touch devices ──
-        if ('ontouchstart' in window) {
-          document.querySelectorAll('.nav-right').forEach(navRight => {
-            const pill   = navRight.querySelector('.nav-pill');
-            const expand = navRight.querySelector('.nav-expand');
-            if (!pill || !expand) return;
-            navRight.addEventListener('click', function(e) {
-              if (e.target.closest('.nav-btn')) return;
-              e.stopPropagation();
-              const isOpen = navRight.classList.contains('open');
-              document.querySelectorAll('.nav-right.open').forEach(el => el.classList.remove('open'));
-              if (!isOpen) navRight.classList.add('open');
-            });
-          });
-          document.addEventListener('click', function() {
-            document.querySelectorAll('.nav-right.open').forEach(el => el.classList.remove('open'));
-          });
-        }
+          const next = (idx + 1) % words.length;
+          setWord(words[next], words[idx]);
+          idx = next;
+        }, 1400);
       })();
-      // ── GRAPHIC PAGE ENTRANCE ANIMATION ─────────────────
-      (function() {
-        const graphicSection = document.getElementById('graphic');
-        if (!graphicSection) return;
-        const animItems = graphicSection.querySelectorAll('.fig-anim-item');
-        const grid      = graphicSection.querySelector('.masonry-grid');
-        const mitems    = grid ? Array.from(grid.querySelectorAll('.mitem')) : [];
-        let triggered   = false;
-        let spotTimer   = null;
-        let spotIdx     = 0;
-        let hovering    = false;
 
-        function triggerEntrance() {
-          if (triggered) return;
-          triggered = true;
-          animItems.forEach((el, i) => {
-            setTimeout(() => el.classList.add('in'), i * 110 + 60);
-          });
-          mitems.forEach((el, i) => { el.style.transitionDelay = `${i * 0.06}s`; });
-          if (grid) {
-            setTimeout(() => {
-              grid.classList.add('carousel-visible');
-              setTimeout(() => {
-                mitems.forEach(el => el.style.transitionDelay = '');
-                startSpotlight();
-              }, mitems.length * 60 + 600);
-            }, 280);
-          }
-        }
+  }, 2200);
 
-        function startSpotlight() {
-          grid.classList.add('spotlight-active');
-          spotIdx = 0;
-          tick();
-          mitems.forEach(m => {
-            m.addEventListener('mouseenter', () => {
-              hovering = true;
-              clearTimeout(spotTimer);
-              mitems.forEach(x => x.classList.remove('spotlight-on'));
-            });
-            m.addEventListener('mouseleave', () => {
-              hovering = false;
-              spotTimer = setTimeout(tick, 900);
-            });
-          });
-        }
+});
 
-        function tick() {
-          if (hovering) return;
-          mitems.forEach(m => m.classList.remove('spotlight-on'));
-          mitems[spotIdx].classList.add('spotlight-on');
-          spotIdx = (spotIdx + 1) % mitems.length;
-          spotTimer = setTimeout(tick, 1800);
-        }
-
-        function stopSpotlight() {
-          clearTimeout(spotTimer);
-          if (grid) grid.classList.remove('spotlight-active');
-          mitems.forEach(m => m.classList.remove('spotlight-on'));
-        }
-
-        const origGo = window.go;
-        window.go = function(id) {
-          if (id === 'graphic') {
-            triggered = false;
-            stopSpotlight();
-            animItems.forEach(el => el.classList.remove('in'));
-            if (grid) grid.classList.remove('carousel-visible');
-            setTimeout(triggerEntrance, 420);
-          } else {
-            stopSpotlight();
-          }
-          origGo(id);
-        };
-        if (window.location.hash === '#graphic') triggerEntrance();
-      })();
-      document.querySelectorAll('.mitem:not(.mitem-empty):not(.mitem-no-modal)').forEach(item => {
-        item.addEventListener('click', () => {
-          const title   = item.dataset.title || item.querySelector('.mcap')?.textContent || 'Untitled';
-          const meta    = item.dataset.meta  || '';
-          const desc    = item.dataset.desc  || '';
-          const gallery = item.dataset.gallery ? item.dataset.gallery.split('|') : [];
-          const mainSrc = gallery[0] || '';
-          const num     = item.querySelector('.mnum')?.textContent || '';
-          const name    = item.querySelector('.mcap')?.textContent || '';
-
-          // apply per-project aspect ratio class
-          const modalImageEl = document.getElementById('modalImage');
-          modalImageEl.classList.remove('ar-portrait','ar-wide','ar-square');
-          const ar = item.dataset.modalAr || '4/3';
-          if (ar === '3/4' || ar === '2/3')       modalImageEl.classList.add('ar-portrait');
-          else if (ar === '16/9' || ar === '16/7') modalImageEl.classList.add('ar-wide');
-          else if (ar === '1/1')                   modalImageEl.classList.add('ar-square');
-
-          // punch animation on card before modal opens
-          item.style.transition = 'transform 0.15s cubic-bezier(0.2,0.9,0.2,1), box-shadow 0.15s ease';
-          item.style.transform  = 'scale(0.94)';
-          item.style.boxShadow  = 'none';
-          setTimeout(() => {
-            item.style.transform = '';
-            item.style.boxShadow = '';
-            item.style.transition = '';
-            openModal(title, meta, desc, mainSrc, gallery, num, name);
-          }, 140);
-        });
-      });
-
-      // zoom on click: toggle zoomed state, follow cursor
-      const modalImageEl = document.getElementById('modalImage');
-
-      function updateZoomPan(clientX, clientY) {
-        const r  = modalImageEl.getBoundingClientRect();
-        // clamp cursor to container bounds so edges are always reachable
-        const cx = Math.max(r.left, Math.min(r.right,  clientX));
-        const cy = Math.max(r.top,  Math.min(r.bottom, clientY));
-        const px = ((cx - r.left) / r.width)  * 100;
-        const py = ((cy - r.top)  / r.height) * 100;
-        modalSharp.style.backgroundPosition = `${px}% ${py}%`;
-      }
-
-      modalImageEl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // in illustration lightbox: click image to close
-        if (document.getElementById('modalCard').classList.contains('modal-illus')) {
-          closeModal();
-          return;
-        }
-        modalImageEl.classList.toggle('zoomed');
-        if (modalImageEl.classList.contains('zoomed')) {
-          updateZoomPan(e.clientX, e.clientY);
-          cursor.classList.add('hidden');
-        } else {
-          modalSharp.style.backgroundPosition = 'center';
-          cursor.classList.remove('hidden');
-        }
-      });
-
-      // Touch pan for modal zoom
-      modalImageEl.addEventListener('touchmove', (e) => {
-        if (!modalImageEl.classList.contains('zoomed')) return;
-        e.preventDefault();
-        const t = e.touches[0];
-        updateZoomPan(t.clientX, t.clientY);
-      }, { passive: false });
-
-      // track on whole document so cursor leaving container doesn't stop panning
-      document.addEventListener('mousemove', (e) => {
-        if (!modalImageEl.classList.contains('zoomed')) return;
-        updateZoomPan(e.clientX, e.clientY);
-      });
-
-      // reset zoom when swapping images
-      const origSetMainImage = setMainImage;
-      window._setMainImage = (src) => {
-        modalImageEl.classList.remove('zoomed');
-        modalSharp.style.backgroundPosition = 'center';
-        origSetMainImage(src);
-      };
-      document.getElementById('modalClose').addEventListener('click', closeModal);
-      modalOverlay.addEventListener('click', (e) => { 
-        if (e.target === modalOverlay || modalOverlay.classList.contains('modal-illus-overlay')) {
-          if (!e.target.closest('.modalClose') && !e.target.closest('.modalName') && !e.target.closest('.modalNum')) closeModal();
-        }
-      });
-      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-
-      function closeModal() {
-        modalOverlay.classList.remove('open-visible');
-        document.getElementById('modalCard').classList.remove('modal-single');
-        document.getElementById('modalCard').classList.remove('modal-illus');
-        document.getElementById('modalCard').classList.remove('modal-photo-nozoom');
-        document.getElementById('modalOverlay').classList.remove('modal-illus-overlay');
-        document.getElementById('modalImage').classList.remove('ar-portrait','ar-wide','ar-square');
-        document.body.style.overflow = '';
-        // reset zoom state and restore cursor
-        modalImageEl.classList.remove('zoomed');
-        modalSharp.style.backgroundPosition = 'center';
-        cursor.classList.remove('hidden');
-        // wait for fade-out then hide
-        setTimeout(() => {
-          modalOverlay.classList.remove('open');
-        }, 280);
-      }
-
-    }, 1400);
-  });
 </script>
 
-<!-- MODAL OVERLAY -->
-<div id="modalOverlay" aria-hidden="true">
-  <div id="modalCard">
-    <div class="modalHeader">
-      <span id="modalNum" class="modalNum"></span>
-      <span id="modalName" class="modalName"></span>
-    </div>
-    <div class="modalMainImg">
-      <div id="modalImage" class="modalImage">
-        <div id="modalBlur" class="modalImageBlur"></div>
-        <div id="modalSharp" class="modalImageInner"></div>
-      </div>
-    </div>
-    <div id="modalGallery" class="modalGallery"></div>
-    <div class="modalInfo">
-      <div id="modalTitle" class="modalTitle"></div>
-      <div id="modalMeta" class="modalMeta"></div>
-      <div id="modalDesc" class="modalDesc"></div>
-    </div>
-  </div>
-  <button id="modalClose" class="modalClose">Close</button>
-</div>
+  </section>
 
-<script>
-  // Parallax scrolling — bound to #app (the real scroll container) + each category page
-  (function(){
-    const appEl     = document.getElementById('app');
-    const heroSpans = document.querySelectorAll('.hero > span');
-    const homeWord  = document.querySelector('.home-wordmark');
-    let ticking = false;
-
-    const rendSection = document.getElementById('rendering');
-
-    function updateParallax(){
-      // Scroll-driven gradient on #rendering
-      if (rendSection) {
-        const scrollTop  = rendSection.scrollTop;
-        const scrollMax  = rendSection.scrollHeight - rendSection.clientHeight;
-        const progress   = scrollMax > 0 ? scrollTop / scrollMax : 0;
-        const pos        = Math.round(progress * 100);
-        rendSection.style.backgroundPosition = pos + '% 50%';
-      }
-
-      // Hero: driven by app-level scroll (≈0 while on home, so effectively idle there)
-      const scrollY = appEl.scrollTop;
-      heroSpans.forEach((el, i) => {
-        const speed = 0.04 + i * 0.01;
-        el.style.transform = `translateY(${scrollY * speed}px)`;
-      });
-      if (homeWord) homeWord.style.transform = `translateY(${scrollY * 0.02}px)`;
-
-      // pimgs: viewport-relative — works regardless of which element is scrolling
-      const winH = window.innerHeight;
-      document.querySelectorAll('.pimg').forEach(img => {
-        const r        = img.getBoundingClientRect();
-        const distance = (r.top + r.height / 2) - winH / 2;
-        const pos      = 50 - distance * 0.04;
-        img.style.backgroundPosition = `center ${pos}%`;
-      });
-    }
-
-    function onScroll(){
-      if (!ticking){
-        requestAnimationFrame(() => { updateParallax(); ticking = false; });
-        ticking = true;
-      }
-    }
-
-    // #app handles page-level scroll (home ↔ what etc.)
-    appEl.addEventListener('scroll', onScroll, { passive: true });
-
-    // category pages scroll internally — bind to each so pimgs parallax fires
-    document.querySelectorAll('.page.category').forEach(pg => {
-      pg.addEventListener('scroll', onScroll, { passive: true });
-    });
-
-    updateParallax();
-  })();
-</script>
-<script>
-  // ── BRAND — scroll-driven bg handled by filmstrip JS above ───────────────
-</script>
-
-<div id="cursor" class="on-light">*</div>
+</div><!-- /app -->
 
 <script>
   // Custom cursor — pixel-sampling color detection
-  (function(){
+  (function() {
     const cursor = document.getElementById('cursor');
+    if (!cursor) return;
+    let mx = window.innerWidth/2, my = window.innerHeight/2;
+    let cx = mx, cy = my;
 
-    // Touch-primary devices: cursor is hidden via CSS; skip the whole RAF loop.
-    if (window.matchMedia('(hover: none)').matches) return;
-
-    const BLU    = '#1400ff'; // same as --blu
-    const WHITE  = '#f5f5f0'; // same as --white/off
-
-    // hidden canvas for pixel sampling
-    const canvas = document.createElement('canvas');
-    const ctx    = canvas.getContext('2d', { willReadFrequently: true });
-    canvas.width  = 1;
-    canvas.height = 1;
-
-    let mx = -200, my = -200;
-    let isHover = false;
-    let rafId = null;
-
-    // sample a SAMPLE_RADIUS px area around cursor and average the brightness
-    const SAMPLE_RADIUS = 18;
-
-    function sampleBrightness(x, y) {
-      const els = document.elementsFromPoint(x, y);
-      const parse = (str) => {
-        const m = str.match(/[\d.]+/g);
-        return m ? m.map(Number) : null;
-      };
-      const lum = (rgb) => rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114;
-
-      for (const el of els) {
-        if (el === cursor || el === document.documentElement) continue;
-
-        const style = window.getComputedStyle(el);
-
-        // if element has direct text, read its color —
-        // cursor must MATCH text color to stay visible on same background
-        // so invert: white text (bright) → return dark → cursor goes white
-        const hasDirectText = Array.from(el.childNodes).some(
-          n => n.nodeType === 3 && n.textContent.trim().length > 0
-        );
-        if (hasDirectText) {
-          const rgb = parse(style.color);
-          if (rgb) {
-            const b = lum(rgb);
-            // invert: bright text → dark reading → cursor becomes white
-            return 255 - b;
-          }
-        }
-
-        // no direct text: read background color, cursor opposes it
-        const rgb = parse(style.backgroundColor);
-        if (!rgb) continue;
-        const alpha = rgb.length >= 4 ? rgb[3] : 1;
-        if (alpha < 0.1) continue;
-        return lum(rgb);
+    function setCursorColor() {
+      // Find which .page is currently centered in the viewport
+      const pages = document.querySelectorAll('.page');
+      let best = null, bestScore = -1;
+      pages.forEach(p => {
+        const r = p.getBoundingClientRect();
+        const vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        if (vis > bestScore) { bestScore = vis; best = p; }
+      });
+      if (!best) return;
+      // Light bg pages = off-bg/what/about/do/graphic/photo
+      // off-bg pages (light background) get blue cursor; everything else gets white
+      // off-bg pages get blue cursor; blu-bg pages get white; brand page depends on snap
+      // off-bg pages get blue cursor; photo page gets white (dark images)
+      let lightBg = best.classList.contains('off-bg') 
+        && !best.classList.contains('blu-bg')
+        && best.id !== 'photo';
+      if (best.id === 'brand') {
+        lightBg = best.classList.contains('brand-on-light');
       }
-
-      const rgb = parse(window.getComputedStyle(document.body).backgroundColor);
-      return rgb ? lum(rgb) : 200;
+      cursor.classList.toggle('on-off', lightBg);
+      cursor.classList.toggle('on-dark', !lightBg);
     }
 
-    // sample every 30ms for snappy response
-    let lastSample = 0;
-    let currentColor = BLU;
-
     function updateCursor() {
-      cursor.style.left = mx + 'px';
-      cursor.style.top  = my + 'px';
-
-      const now = Date.now();
-      if (now - lastSample > 30) {
-        lastSample = now;
-        const brightness = sampleBrightness(mx, my);
-        if (brightness > 160) {
-          cursor.classList.add('on-light');
-          cursor.classList.remove('on-dark');
-        } else if (brightness < 100) {
-          cursor.classList.add('on-dark');
-          cursor.classList.remove('on-light');
-        }
-        // dead zone: keep previous
-      }
-
-      rafId = requestAnimationFrame(updateCursor);
+      cx += (mx - cx) * 0.18;
+      cy += (my - cy) * 0.18;
+      cursor.style.left = cx + 'px';
+      cursor.style.top  = cy + 'px';
+      requestAnimationFrame(updateCursor);
     }
 
     document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
+      mx = e.clientX; my = e.clientY;
     });
 
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      cursor.style.opacity = '1';
-    });
-
-    // grow on clickable elements
+    // Update color on page navigation
+    const appEl = document.getElementById('app');
+    if (appEl) appEl.addEventListener('scroll', setCursorColor, { passive: true });
+    setCursorColor();
+    document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
     document.addEventListener('mouseover', e => {
       const t = e.target.closest('a, button, .mitem, .witem, .pitem, .ie-item, .modalThumb, .nav-btn, .nav-logo, .modalClose, [onclick]');
       cursor.classList.toggle('is-hover', !!t);
     });
-
-    // water drop ripple on click
     document.addEventListener('click', e => {
       const ripple = document.createElement('div');
       ripple.className = 'ripple';
-      const size = 28;
-      ripple.style.width  = size + 'px';
-      ripple.style.height = size + 'px';
-      ripple.style.left   = e.clientX + 'px';
-      ripple.style.top    = e.clientY + 'px';
-      ripple.style.background = document.getElementById('cursor').classList.contains('on-dark')
-        ? 'rgba(255,255,255,0.55)'
-        : 'rgba(20,0,255,0.35)';
+      ripple.style.cssText = 'width:28px;height:28px;left:' + e.clientX + 'px;top:' + e.clientY + 'px;background:' +
+        (cursor.classList.contains('on-off') ? 'rgba(20,0,255,0.35)' : 'rgba(255,255,255,0.55)') + ';';
       document.body.appendChild(ripple);
       ripple.addEventListener('animationend', () => ripple.remove());
     });
-
-    // start the RAF loop
     updateCursor();
   })();
 </script>
+
+<!-- ── GRAPHIC DESIGN POSTER SLIDER ── -->
+<div id="posterOverlay">
+  <button id="posterClose">✕</button>
+  <div id="posterInfo">
+    <div id="posterTitle"></div>
+    <div id="posterMeta"></div>
+    <div id="posterCounter"></div>
+  </div>
+  <div class="swiper" id="posterSwiper">
+    <div class="swiper-wrapper" id="posterWrapper"></div>
+  </div>
+  <div id="posterDesc"></div>
+  <div id="posterHint">
+    <svg width="28" height="10" viewBox="0 0 28 10" fill="none"><path d="M0 5h26M21 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>drag to explore</span>
+    <svg width="28" height="10" viewBox="0 0 28 10" fill="none" style="transform:scaleX(-1)"><path d="M0 5h26M21 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</div>
+<style>
+  #posterOverlay {
+    display:none; position:fixed; inset:0; background:#0a0a0a; z-index:9000;
+    align-items:center; justify-content:center; flex-direction:column;
+    opacity:0; transition:opacity 0.4s ease;
+  }
+  #posterOverlay.open { display:flex; }
+  #posterOverlay.open-visible { opacity:1; }
+  #posterClose { position:fixed; top:24px; right:28px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:22px; cursor:pointer; z-index:10; padding:8px; transition:color 0.2s; }
+  #posterClose:hover { color:#fff; }
+  #posterInfo { position:fixed; top:28px; left:36px; display:flex; align-items:baseline; gap:14px; z-index:10; }
+  #posterTitle { font-family:'Poppins',sans-serif; font-weight:900; font-size:clamp(13px,1.1vw,16px); color:#fff; letter-spacing:-0.01em; text-transform:uppercase; }
+  #posterMeta  { font-family:'Poppins',sans-serif; font-weight:300; font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:0.04em; }
+  #posterCounter { font-family:'Poppins',sans-serif; font-weight:400; font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:0.06em; }
+  #posterDesc  { position:fixed; bottom:32px; left:50%; transform:translateX(-50%); text-align:center; font-family:'Poppins',sans-serif; font-size:12px; font-weight:300; color:rgba(255,255,255,0.4); max-width:520px; line-height:1.5; z-index:10; }
+  #posterSwiper { width:100%; height:80vh; perspective:1200px; flex-shrink:0; }
+  #posterSwiper .swiper-wrapper { align-items:center; height:100%; transform-style:preserve-3d; }
+  #posterSwiper .swiper-slide { transform-style:preserve-3d; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),opacity 0.4s ease; height:70vh; flex-shrink:0; }
+  .poster-slide { width:100%; height:100%; border-radius:8px; overflow:hidden; cursor:zoom-in; box-shadow:0 30px 80px rgba(0,0,0,0.7); position:relative; }
+  .poster-slide.zoomed { cursor:none; }
+  .poster-blur  { position:absolute; inset:-20px; background-size:cover; background-position:center; filter:blur(18px) brightness(0.65); z-index:0; pointer-events:none; }
+  .poster-sharp { position:absolute; inset:0; background-size:contain; background-repeat:no-repeat; background-position:center; z-index:1; transition:background-size 0.35s ease; pointer-events:none; }
+  .poster-slide.zoomed .poster-sharp { background-size:220%; transition:background-position 0.6s cubic-bezier(0.25,0.46,0.45,0.94),background-size 0.35s ease; }
+  .swiper-slide-active .poster-slide { box-shadow:0 40px 100px rgba(0,0,0,0.9); }
+  #posterHint { position:fixed; bottom:32px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.35); font-family:'Poppins',sans-serif; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; pointer-events:none; transition:opacity 0.5s ease; z-index:10; }
+  #posterHint.hidden { opacity:0; }
+  @media (max-width:768px) { #posterSwiper { height:70vh; } #posterDesc { display:none; } #posterHint { bottom:16px; } }
+</style>
+
+<!-- ── 3D RENDERING PANORAMA SLIDER ── -->
+<div id="panoramaOverlay">
+  <div id="panoramaScroll">
+    <div id="panoramaTrack"></div>
+  </div>
+  <div id="panoramaInfo">
+    <div id="panoramaTitle"></div>
+    <div id="panoramaMeta"></div>
+  </div>
+  <div id="panoramaCounter"></div>
+  <button id="panoramaClose">✕</button>
+</div>
+<style>
+  #panoramaOverlay {
+    display: none; position: fixed; inset: 0; z-index: 9100;
+    background: #080808;
+    opacity: 0; transition: opacity 0.45s ease;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  #panoramaOverlay.pano-open    { display: flex; }
+  #panoramaOverlay.pano-visible { opacity: 1; }
+
+  #panoramaScroll {
+    width: 100%; height: 100%;
+    overflow-x: auto; overflow-y: hidden;
+    display: flex; align-items: center;
+    scrollbar-width: none; scroll-snap-type: x mandatory;
+    cursor: grab; user-select: none;
+    padding-top: 80px; box-sizing: border-box;
+  }
+  /* clicking outside scroll track closes overlay */
+  #panoramaOverlay { cursor: default; }
+  #panoramaScroll::-webkit-scrollbar { display: none; }
+  #panoramaScroll.grabbing { cursor: grabbing; }
+
+  #panoramaTrack {
+    display: flex; align-items: center;
+    gap: 24px; padding: 0 calc(50vw - 35vh);
+    height: 100%; flex-shrink: 0;
+  }
+
+  .pano-slide {
+    flex-shrink: 0;
+    height: 78vh;
+    max-width: 90vw;
+    width: auto;
+    scroll-snap-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.8);
+    position: relative;
+  }
+  .pano-slide img {
+    height: 100%; width: auto;
+    display: block; pointer-events: none;
+    user-select: none; -webkit-user-drag: none;
+  }
+  /* pan animation — subtle translate on every opened project */
+  .pano-slide img {
+    animation: panSlide 5s ease-in-out infinite alternate;
+  }
+  @keyframes panSlide {
+    0%   { transform: translateX(0px); }
+    100% { transform: translateX(-28px); }
+  }
+
+  #panoramaInfo {
+    position: fixed; top: 24px; left: 36px; z-index: 10;
+    display: flex; flex-direction: column; gap: 4px;
+    pointer-events: none;
+  }
+  #panoramaTitle {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: clamp(14px, 1.4vw, 20px); color: #fff;
+    letter-spacing: -0.02em; text-transform: uppercase;
+  }
+  #panoramaMeta {
+    font-family: 'Poppins', sans-serif; font-weight: 300;
+    font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em;
+  }
+  #panoramaCounter {
+    position: fixed; bottom: 28px; right: 36px; z-index: 10;
+    font-family: 'Poppins', sans-serif; font-size: 11px;
+    color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
+  }
+  #panoramaClose {
+    position: fixed; top: 24px; right: 28px; z-index: 10;
+    background: none; border: none; color: rgba(255,255,255,0.6);
+    font-size: 22px; cursor: pointer; padding: 8px; transition: color 0.2s;
+  }
+  #panoramaClose:hover { color: #fff; }
+  @media (max-width: 768px) {
+    .pano-slide { height: 60vh; }
+    #panoramaTrack { padding: 0 calc(50vw - 30vh); gap: 16px; }
+    #panoramaInfo { top: 16px; left: 20px; }
+  }
+</style>
 
 <script>
   // ── LAZY LOAD background-image elements ─────────────────────────────────
