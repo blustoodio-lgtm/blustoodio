@@ -1613,7 +1613,7 @@
         justify-content: center;
         transition: opacity 0.3s ease;
         cursor: pointer;
-        padding: 10px 0;
+        padding: 12px 0;
       }
 
       .witem.two-lines {
@@ -1721,7 +1721,7 @@
           });
 
           item.addEventListener('mouseleave', () => {
-            floater.classList.remove('wshow');
+            setTimeout(() => floater.classList.remove('wshow'), 300);
           });
         });
 
@@ -1794,7 +1794,7 @@
       <div>
         <div class="do-block-label">email</div>
         <div class="do-block-value">
-          <a href="/cdn-cgi/l/email-protection#1a78766f34696e75757e73755a7d777b737634797577"><span class="__cf_email__" data-cfemail="593b352c772a2d36363d3036193e34383035773a3634">[email&#160;protected]</span></a>
+          <a href="/cdn-cgi/l/email-protection#6a08061f44191e05050e03052a0d070b030644090507"><span class="__cf_email__" data-cfemail="c3a1afb6edb0b7acaca7aaac83a4aea2aaafeda0acae">[email&#160;protected]</span></a>
         </div>
       </div>
 
@@ -1808,8 +1808,10 @@
 
       <div>
         <div class="do-block-label">il team</div>
-        <div class="do-block-value">
-          Luca<br>Davide<br>Beatrice<br>Mattia<br>Juan<br>Matilde
+        <div class="do-block-value" style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;">
+          <span>Luca</span><span>Mattia</span>
+          <span>Davide</span><span>Juan</span>
+          <span>Beatrice</span><span>Matilde</span>
         </div>
       </div>
 
@@ -2272,9 +2274,9 @@
     <!-- photo counter -->
     <div class="photo-counter" id="photoCounter">01 / 04</div>
 
-    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:0;left:0;right:0;z-index:8;background:rgba(0,0,0,0.45);padding:22px 24px;">
+    <div class="cta-tile" onclick="go('do')" style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:8;background:none;padding:0;gap:4px;">
       <span class="cta-tile-coming" style="color:rgba(255,255,255,0.55);">coming soon..</span>
-      <span class="cta-tile-cta" style="color:#fff;">your project!</span>
+      <span class="cta-tile-cta" style="color:#fff;font-size:clamp(14px,1.4vw,20px);">your project!</span>
     </div>
 
   </section>
@@ -3464,7 +3466,7 @@
 
     /* ── WHAT WE DO: bigger tap targets ── */
     .wname { font-size: clamp(40px, 12vw, 68px) !important; }
-    .witem { min-height: 68px !important; padding: 10px 0 !important; }
+    .witem { min-height: 70px !important; padding: 12px 0 !important; }
 
     /* ── GRAPHIC DESIGN: stack title above list, 2-col tiles ── */
     .fig-top.fig-graphic-top {
@@ -4850,4 +4852,19 @@
           const bg = el.getAttribute('data-bg');
           if (bg) {
             el.style.backgroundImage = "url('" + bg + "')";
-            el.removeAttribute('dat
+            el.removeAttribute('data-bg');
+            bgObserver.unobserve(el);
+          }
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    document.querySelectorAll('[data-bg]').forEach(function(el) {
+      bgObserver.observe(el);
+    });
+  })();
+</script>
+
+</div><!-- /app -->
+</body>
+</html>
